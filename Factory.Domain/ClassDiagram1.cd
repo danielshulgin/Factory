@@ -1,0 +1,47 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Factory.Domain.MachineLine">
+    <Position X="10.25" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAgAAAAAAAQAAACAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>MachineLine.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Factory.Domain.Machine">
+    <Position X="6" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AMQEAAwAAAIAAAoAAAAACACCEJAAAAAgCAAAAIAAAAA=</HashCode>
+      <FileName>Machine.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Factory.Domain.Transporter">
+    <Position X="8.5" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQQAAAAAAAAAAAAAAAAAAAAGIIgAAAAAAAAAACAAAA=</HashCode>
+      <FileName>Transporter.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Factory.Domain.Entity">
+    <Position X="10.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAABAAAAAAAAAAAAAAAAAAAAAAAAAACAAAAAAAAAAAA=</HashCode>
+      <FileName>Entity.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Factory.Domain.EntityOnTransposter">
+    <Position X="3" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAABAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>EntityOnTransposter.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Struct Name="Factory.Domain.Detail">
+    <Position X="3.75" Y="1.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAgAAAAAQAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Detail.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Struct>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

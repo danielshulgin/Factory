@@ -11,11 +11,8 @@ namespace Factory.Domain
         protected Queue<Entity> _entitiesInProcess;
         protected Queue<Entity> _entitiesQueue;
         protected List<Detail> _detailsToAdd;
+        protected DateTime _timeOfStartHandling;
         public float EntityHandleTime { get; private set; }
-
-        //TODO get it out from bisnes logic, create seperate class for handling time
-        protected DateTime TimeOfStartHandling;
-
         public bool Active { get; private set; }
 
         public int InProcess 
@@ -39,7 +36,7 @@ namespace Factory.Domain
 
         public Machine(float _entityHandleTime, bool active, List<Detail> detailsToAdd)
         {
-            TimeOfStartHandling = DateTime.Now;
+            _timeOfStartHandling = DateTime.Now;
             _input = new List<Machine>();
             _output = new List<Machine>();
             _entitiesInProcess = new Queue<Entity>();
@@ -71,14 +68,14 @@ namespace Factory.Domain
             {
                 EndHandleEntity();
                 HandleEntity();
-                TimeOfStartHandling = DateTime.Now;
+                _timeOfStartHandling = DateTime.Now;
             }
         }
 
         public virtual bool CanHandle()
         {
-            return ((DateTime.Now - TimeOfStartHandling).TotalSeconds > EntityHandleTime) || 
-                TimeOfStartHandling == null;
+            return ((DateTime.Now - _timeOfStartHandling).TotalSeconds > EntityHandleTime) || 
+                _timeOfStartHandling == null;
         }
 
         public virtual void EndHandleEntity()

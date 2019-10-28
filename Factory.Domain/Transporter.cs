@@ -6,15 +6,16 @@ namespace Factory.Domain
 {
     public class Transporter : Machine
     {
-        public double progress = 0;
-        public Queue<EntityOnTransposter> _entitiesOnTransporter = new Queue<EntityOnTransposter>();
-        private DateTime _lastUpdateTime;
+        public double Progress { get; private set; }
         public float EntityTransportingTime { get; private set; }
+        public Queue<EntityOnTransposter> EntitiesOnTransporter { get; private set; }
+        private DateTime _lastUpdateTime;
         //TODO in main update loop
 
         public Transporter(float entityTransportingTime, float _entityHandleTime, bool active) : base(_entityHandleTime, active)
         {
             EntityTransportingTime = entityTransportingTime;
+            EntitiesOnTransporter = new Queue<EntityOnTransposter>();
         }
 
         public override void HandleEntity()
@@ -28,7 +29,7 @@ namespace Factory.Domain
             _lastUpdateTime = DateTime.Now;
             float positionDelta = timeElapsed / EntityTransportingTime;
             int readyEntities = 0;
-            foreach (var entityOnTransposter in _entitiesOnTransporter)
+            foreach (var entityOnTransposter in EntitiesOnTransporter)
             {
                 entityOnTransposter.postion += positionDelta;
                 if (entityOnTransposter.postion > 1f)
@@ -47,28 +48,15 @@ namespace Factory.Domain
         {
             if (_output != null && _output.Count > 0 && _entitiesInProcess.Count > 0)
             {
-                _entitiesOnTransporter.Enqueue(new EntityOnTransposter(
+                EntitiesOnTransporter.Enqueue(new EntityOnTransposter(
                     _entitiesInProcess.Dequeue()));
             }
         }
 
         public virtual void EndTransportingEntity()
         {
-            var entity = _entitiesOnTransporter.Dequeue().entity;
+            var entity = EntitiesOnTransporter.Dequeue().entity;
             _output[0].Accept(entity);
         }
     }
-
-    public class EntityOnTransposter
-    {
-        public float postion;
-        public Entity entity;
-
-        public EntityOnTransposter(Entity entity, float postion = 0f)
-        {
-            this.postion = postion;
-            this.entity = entity;
-        }
-    }
 }
-

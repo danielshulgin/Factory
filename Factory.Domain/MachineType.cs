@@ -6,8 +6,15 @@ namespace Factory.Domain
 {
     public class MachineType
     {
-        public List<Detail> detail;
-        public float EntityHandleTime;
+        private List<Detail> detail;
+        private float EntityHandleTime;
+
+        public MachineType(List<Detail> detail, float entityHandleTime)
+        {
+            this.detail = detail;
+            EntityHandleTime = entityHandleTime;
+        }
         //public float electricityConsumption;
+
     }
 }
