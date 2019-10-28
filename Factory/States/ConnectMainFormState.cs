@@ -63,11 +63,11 @@ namespace Factory2
                 mainWindow.transporters.Add(line, transporter);
                 mainWindow.myCanvas.Children.Add(line);
 
-                mainWindow.automaticMachines[first].TryConnectOutput(transporter);
-                transporter.TryConnectInput(mainWindow.automaticMachines[first]);
+                //mainWindow.automaticMachines[first].TryConnectOutput(transporter);
+                //transporter.TryConnectInput(mainWindow.automaticMachines[first]);
 
-                mainWindow.automaticMachines[second].TryConnectInput(transporter);
-                transporter.TryConnectOutput(mainWindow.automaticMachines[second]);
+                //mainWindow.automaticMachines[second].TryConnectInput(transporter);
+                //transporter.TryConnectOutput(mainWindow.automaticMachines[second]);
 
                 first = null;
                 second = null;

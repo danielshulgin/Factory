@@ -39,16 +39,16 @@ namespace Factory2
             _timer.Tick += new EventHandler(Update);
             _timer.Start();
         }
+        private void Update(object o, EventArgs e)
+        {
+            _mainFormState.Update();
+        }
 
         private void ItemManagementButton_Click(object sender, RoutedEventArgs e)
         {
             ChangeMode(new ItemManagementState());
         }
 
-        private void Update(object o, EventArgs e)
-        {
-            _mainFormState.Update();
-        }
 
         private void ChangeMode(IMainFormState state)
         {

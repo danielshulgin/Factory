@@ -6,56 +6,33 @@ namespace Factory.Domain
 {
     public class Machine
     {
-        protected List<Machine> _input;
-        protected List<Machine> _output;
-        protected Queue<Entity> _entitiesInProcess;
-        protected Queue<Entity> _entitiesQueue;
-        protected List<Detail> _detailsToAdd;
-        protected DateTime _timeOfStartHandling;
         public float EntityHandleTime { get; private set; }
         public bool Active { get; private set; }
-
-        public int InProcess 
-        {
-            get
-            {
-                return _entitiesInProcess.Count;
-            }
-        }
-        public int InQueue
-        {
-            get
-            {
-                return _entitiesQueue.Count;
-            }
-        }
-        public Machine(float _entityHandleTime, bool active) : this(_entityHandleTime, active, new List<Detail>())
-        {
-            
-        }
-
+        
+        protected Queue<Entity> _entitiesQueue;
+        protected Queue<Entity> _entitiesInProcess;
+        protected Queue<Entity> _entitiesComplete;
+        public int InProcessEntityNumber => _entitiesInProcess.Count;
+        public int InQueueEntityNumber => _entitiesQueue.Count;
+        public int CompleteEntityNumber => _entitiesComplete.Count;
+        
+        protected List<Detail> _detailsToAdd;
+        protected DateTime _timeOfStartHandling;
+       
         public Machine(float _entityHandleTime, bool active, List<Detail> detailsToAdd)
         {
             _timeOfStartHandling = DateTime.Now;
-            _input = new List<Machine>();
-            _output = new List<Machine>();
+            
             _entitiesInProcess = new Queue<Entity>();
             _entitiesQueue = new Queue<Entity>();
+            _entitiesComplete = new Queue<Entity>();
+
             _detailsToAdd = detailsToAdd;
             this.EntityHandleTime = _entityHandleTime;
             Active = active;
         }
 
-        public virtual bool TryConnectInput(Machine machine)
-        {
-            _input.Add(machine);
-            return true;
-        }
-        public virtual bool TryConnectOutput(Machine machine)
-        {
-            _output.Add(machine);
-            return true;
-        }
+        public Machine(float _entityHandleTime, bool active) : this(_entityHandleTime, active, new List<Detail>()) { }
 
         public virtual void Accept(Entity entity)
         {
@@ -78,24 +55,35 @@ namespace Factory.Domain
                 _timeOfStartHandling == null;
         }
 
+        public virtual void HandleEntity()
+        {
+            if(_entitiesQueue.Count > 0)
+                _entitiesInProcess.Enqueue(_entitiesQueue.Dequeue());
+        }
+
         public virtual void EndHandleEntity()
         {
-            if (_output != null && _output.Count > 0 && _entitiesInProcess.Count > 0)
+            if (_entitiesInProcess.Count > 0)
             {
                 Entity entity = _entitiesInProcess.Dequeue();
                 foreach (var detail in _detailsToAdd)
                 {
                     entity.TryAddDetail(detail);
                 }
-                _output[0].Accept(entity);
+                _entitiesComplete.Enqueue(entity);
             }
         }
 
-        public virtual void HandleEntity()
+        public Entity YieldEntity()
         {
-            if(_entitiesQueue.Count > 0)
-                _entitiesInProcess.Enqueue(_entitiesQueue.Dequeue());
+            if (_entitiesComplete.Count > 0)
+            {
+                return _entitiesComplete.Dequeue();
+            }
+            return null;
         }
+
+        
 
         public virtual void SetActive(bool active)
         {

@@ -1,13 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Linq;
 
 namespace Factory.Domain
 {
     public class Entity
     {
-        public readonly List<Detail> _details;
+        public List<string> DetailsNames => _details.Select(detail => detail.Name).ToList();
 
+        private List<Detail> _details;
         public Entity()
         {
             _details = new List<Detail>();

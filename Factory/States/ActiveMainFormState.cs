@@ -13,9 +13,20 @@ namespace Factory2
     {
         MainWindow mainWindow;
         private Dictionary<Button, EntityOnTransposter> entitiesButtons = new Dictionary<Button, EntityOnTransposter>();
+        private MachineLine _machineLine;
         public void Activate(MainWindow mainWindow)
         {
             this.mainWindow = mainWindow;
+            List<Machine> automaticMachines = mainWindow.automaticMachines.Select(pair => pair.Value).ToList();
+            List<Machine> transporters = mainWindow.transporters.Select(pair => pair.Value as Machine).ToList();
+            List<Machine> machines = new List<Machine>();
+            machines.Add(mainWindow.automaticMachines.FirstOrDefault().Value);
+            for (int i = 0; i < automaticMachines.Count - 1; i++)
+            {
+                machines.Add(transporters[i]);
+                machines.Add(automaticMachines[i + 1]);
+            }
+            _machineLine = new MachineLine(machines);
             foreach (var button in mainWindow.automaticMachines.Keys)
             {
                 button.Click += OnMachineClick;
@@ -35,15 +46,17 @@ namespace Factory2
             UpdateMachines();
             AddItemsOnTransporters();
             RemoveItemsFromTransporters();
-            UpdateTransporters();
+            //UpdateTransporters();
+            _machineLine.Update();
             UpdateItemsPositions();
         }
         private void UpdateTransporters()
         {
-            foreach (var connection in mainWindow.transporters.Values)
-            {
-                connection.Update();
-            }
+            
+            //foreach (var connection in mainWindow.transporters.Values)
+            //{
+            //    connection.Update();
+            //}
         }
 
         private void RemoveItemsFromTransporters()
@@ -100,8 +113,8 @@ namespace Factory2
                         double x2 = connection.Key.X2;
                         double y1 = connection.Key.Y1;
                         double y2 = connection.Key.Y2;
-                        button.Margin = new Thickness(x1 + (x2 - x1) * entityOnTransporter.postion,
-                            y1 + (y2 - y1) * entityOnTransporter.postion, 0, 0);
+                        button.Margin = new Thickness(x1 + (x2 - x1) * entityOnTransporter.Position,
+                            y1 + (y2 - y1) * entityOnTransporter.Position, 0, 0);
                     }
                 }
             }
@@ -151,16 +164,16 @@ namespace Factory2
 
         private void OnEntityClick(object sender, RoutedEventArgs e)
         {
-            Entity entity = entitiesButtons[(Button)sender].entity;
-            mainWindow.ActivateItemDialog("Entity", entity._details.Select(detail => detail.Name).ToList());
+            Entity entity = entitiesButtons[(Button)sender].Entity;
+            mainWindow.ActivateItemDialog("Entity", entity.DetailsNames);
         }
 
         public void OnMachineClick(object sender, EventArgs eventArgs)
         {
             Machine machine = mainWindow.automaticMachines[(Button)sender];
             var properties = new Dictionary<string, string>();
-            properties["InProcess"] = machine.InProcess.ToString();
-            properties["InQueue"] = machine.InQueue.ToString();
+            properties["InProcess"] = machine.InProcessEntityNumber.ToString();
+            properties["InQueue"] = machine.InQueueEntityNumber.ToString();
             mainWindow.ActivateItemDialog("Machine", properties);
         }
     }

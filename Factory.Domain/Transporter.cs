@@ -7,10 +7,10 @@ namespace Factory.Domain
     public class Transporter : Machine
     {
         public double Progress { get; private set; }
+        public float PositionDelta { get; private set; }
         public float EntityTransportingTime { get; private set; }
         public Queue<EntityOnTransposter> EntitiesOnTransporter { get; private set; }
         private DateTime _lastUpdateTime;
-        //TODO in main update loop
 
         public Transporter(float entityTransportingTime, float _entityHandleTime, bool active) : base(_entityHandleTime, active)
         {
@@ -27,12 +27,12 @@ namespace Factory.Domain
         {
             float timeElapsed = (float)(DateTime.Now - _lastUpdateTime).TotalSeconds / EntityHandleTime;
             _lastUpdateTime = DateTime.Now;
-            float positionDelta = timeElapsed / EntityTransportingTime;
+            PositionDelta = timeElapsed / EntityTransportingTime;
             int readyEntities = 0;
             foreach (var entityOnTransposter in EntitiesOnTransporter)
             {
-                entityOnTransposter.postion += positionDelta;
-                if (entityOnTransposter.postion > 1f)
+                entityOnTransposter.Update(this);
+                if (entityOnTransposter.Position > 1f)
                 {
                     readyEntities++;
                 }
@@ -46,7 +46,7 @@ namespace Factory.Domain
 
         public override void EndHandleEntity()
         {
-            if (_output != null && _output.Count > 0 && _entitiesInProcess.Count > 0)
+            if (_entitiesInProcess.Count > 0)
             {
                 EntitiesOnTransporter.Enqueue(new EntityOnTransposter(
                     _entitiesInProcess.Dequeue()));
@@ -55,8 +55,8 @@ namespace Factory.Domain
 
         public virtual void EndTransportingEntity()
         {
-            var entity = EntitiesOnTransporter.Dequeue().entity;
-            _output[0].Accept(entity);
+            var entity = EntitiesOnTransporter.Dequeue().EndTransporting();
+            _entitiesComplete.Enqueue(entity);
         }
     }
 }
