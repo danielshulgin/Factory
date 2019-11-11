@@ -11,7 +11,17 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Factory.DAL\Factory.DAL.csproj" />
     <ProjectReference Include="..\Factory.Domain\Factory.Domain.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="Factory.DAL">
+      <HintPath>..\Factory.DAL\bin\Debug\netstandard2.0\Factory.DAL.dll</HintPath>
+    </Reference>
+    <Reference Include="Factory.Domain">
+      <HintPath>..\Factory.Domain\obj\Debug\netstandard2.0\Factory.Domain.dll</HintPath>
+    </Reference>
   </ItemGroup>
 
 </Project>

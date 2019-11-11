@@ -39,13 +39,13 @@ namespace Factory.Domain
             _entitiesQueue.Enqueue(entity);
         }
 
-        public virtual void Update()
+        public virtual void Update(DateTime currentDateTime)
         {
             if (CanHandle())
             {
                 EndHandleEntity();
                 HandleEntity();
-                _timeOfStartHandling = DateTime.Now;
+                _timeOfStartHandling = currentDateTime;
             }
         }
 

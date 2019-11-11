@@ -13,30 +13,26 @@ namespace Factory.Domain
             this._machines = machines;
         }
 
-        public void Update()
+        public void Update(DateTime currentDateTime)
         {
             if (_machines.Count >= 2)
             {
                 for (int i = 0; i < _machines.Count - 1; i++)
                 {
-                    UpdateMachine(_machines[i], _machines[i + 1]);
+                    Machine nextMachine = _machines[i + 1];
+                    UpdateMachine(_machines[i], nextMachine, currentDateTime);
                 }
             }
         }
 
-        public void UpdateMachine(Machine machine, Machine nextMachine)
+        private void UpdateMachine(Machine machine, Machine nextMachine, DateTime currentDateTime)
         {
-            machine.Update();
+            machine.Update(currentDateTime);
             if (machine.CompleteEntityNumber > 0)
             {
                 Entity entity = machine.YieldEntity();
                 nextMachine.Accept(entity);
             }
-        }
-
-        public void Optimaize()
-        {
-
         }
     }
 }

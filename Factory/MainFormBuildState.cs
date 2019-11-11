@@ -30,7 +30,7 @@ namespace Factory2
             mainWindow.MouseDown -= Form1_MouseClick;
             foreach (var button in applied)
             {
-                mainWindow.automaticMachines.Add(button, new Machine(4f, true, new List<Detail>() { new Detail("TEST_DETAIL")}));
+                mainWindow.automaticMachines.Add(button, new Machine(4f, true, new List<Detail>() { new Detail("TEST_DETAIL", Guid.NewGuid())}));
             }
         }
 

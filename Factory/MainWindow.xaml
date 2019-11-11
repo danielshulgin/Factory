@@ -15,12 +15,8 @@
             <ComboBoxItem Content="ActiveMode"></ComboBoxItem>
         </ComboBox>
         <Canvas x:Name="myCanvas" Margin="160,0,0,0"/>
-        <Label Content="In Process" HorizontalAlignment="Left" Margin="17,148,0,0" VerticalAlignment="Top" Height="25" Width="59"/>
-        <TextBlock x:Name="inProcessField" HorizontalAlignment="Left" Margin="81,153,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top"/>
-        <Label Content="In Queue" HorizontalAlignment="Left" Margin="17,175,0,0" VerticalAlignment="Top" Height="25" Width="59"/>
-        <TextBlock x:Name="inQueueField" HorizontalAlignment="Left" Margin="81,180,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top"/>
 
-        <Canvas x:Name="ItemManagementMenu" Margin="155,57,98,79" Background="SkyBlue" Visibility="Hidden">
+        <Canvas x:Name="ItemManagementMenu" Margin="155,57,98,79" Height="230" Width="550" Background="SkyBlue" Visibility="Visible">
             <StackPanel Orientation ="Horizontal" Width="547">
                 <StackPanel OverridesDefaultStyle="False"  Height="193" Width="194">
                     <Button Name="detailButton" Content="Details"/>
@@ -32,7 +28,7 @@
                         <Button Name="DeleteDetalButton" Content="Delete" Width="80" Margin="1,0,10,0"/>
                     </StackPanel>
                     <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Visible" HorizontalScrollBarVisibility="Auto" Height="200" CanContentScroll="True" Width="230">
-                        <StackPanel OverridesDefaultStyle="False"  Height="193" Width="194">
+                        <StackPanel x:Name="itemManagementMenuStackPanel" OverridesDefaultStyle="False"  Height="193" Width="194">
                             <Button Content="LOL" Height="20" Background="Azure"/>
                             <Button Content="LOL" Height="20" Background="Azure"/>
                             <Button Content="LOL" Height="20" Background="Azure"/>

@@ -27,7 +27,7 @@ namespace Factory2
             transporters = new Dictionary<Line, Transporter>();
             _entitiesButtons = new Dictionary<Button, EntityOnTransposter>();
 
-            ChangeMode(new MainFormBuildState());
+            ChangeMode(new ItemManagementState());
             StartStateUpdate();
             comboBox.SelectedIndex = 0;
         }

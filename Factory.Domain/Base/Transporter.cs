@@ -9,13 +9,17 @@ namespace Factory.Domain
         public double Progress { get; private set; }
         public float PositionDelta { get; private set; }
         public float EntityTransportingTime { get; private set; }
-        public Queue<EntityOnTransposter> EntitiesOnTransporter { get; private set; }
+
+        public IReadOnlyCollection<EntityOnTransposter> EntitiesOnTransporter => _entitiesOnTransporter;
+
+        private Queue<EntityOnTransposter> _entitiesOnTransporter;
+
         private DateTime _lastUpdateTime;
 
         public Transporter(float entityTransportingTime, float _entityHandleTime, bool active) : base(_entityHandleTime, active)
         {
             EntityTransportingTime = entityTransportingTime;
-            EntitiesOnTransporter = new Queue<EntityOnTransposter>();
+            _entitiesOnTransporter = new Queue<EntityOnTransposter>();
         }
 
         public override void HandleEntity()
@@ -23,13 +27,13 @@ namespace Factory.Domain
             base.HandleEntity();
         }
 
-        public override void Update()
+        public override void Update(DateTime currentDateTime)
         {
             float timeElapsed = (float)(DateTime.Now - _lastUpdateTime).TotalSeconds / EntityHandleTime;
             _lastUpdateTime = DateTime.Now;
             PositionDelta = timeElapsed / EntityTransportingTime;
             int readyEntities = 0;
-            foreach (var entityOnTransposter in EntitiesOnTransporter)
+            foreach (var entityOnTransposter in _entitiesOnTransporter)
             {
                 entityOnTransposter.Update(this);
                 if (entityOnTransposter.Position > 1f)
@@ -41,21 +45,21 @@ namespace Factory.Domain
             {
                 EndTransportingEntity();
             }
-            base.Update();
+            base.Update(currentDateTime);
         }
 
         public override void EndHandleEntity()
         {
             if (_entitiesInProcess.Count > 0)
             {
-                EntitiesOnTransporter.Enqueue(new EntityOnTransposter(
+                _entitiesOnTransporter.Enqueue(new EntityOnTransposter(
                     _entitiesInProcess.Dequeue()));
             }
         }
 
         public virtual void EndTransportingEntity()
         {
-            var entity = EntitiesOnTransporter.Dequeue().EndTransporting();
+            var entity = _entitiesOnTransporter.Dequeue().EndTransporting();
             _entitiesComplete.Enqueue(entity);
         }
     }

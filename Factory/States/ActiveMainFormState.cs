@@ -47,7 +47,7 @@ namespace Factory2
             AddItemsOnTransporters();
             RemoveItemsFromTransporters();
             //UpdateTransporters();
-            _machineLine.Update();
+            _machineLine.Update(DateTime.Now);
             UpdateItemsPositions();
         }
         private void UpdateTransporters()
@@ -134,7 +134,7 @@ namespace Factory2
 
                 foreach (var machine in mainWindow.automaticMachines.Values)
                 {
-                    machine.Update();
+                    machine.Update(DateTime.Now);
                 }
             }
         }

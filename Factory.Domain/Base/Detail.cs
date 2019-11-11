@@ -9,12 +9,6 @@ namespace Factory.Domain
         public string Name { get; private set; }
         public Guid Guid { get; private set; }
 
-        public Detail(string name)
-        {
-            Name = name;
-            Guid = Guid.NewGuid();
-        }
-
         public Detail(string name, Guid guid)
         {
             Name = name;
