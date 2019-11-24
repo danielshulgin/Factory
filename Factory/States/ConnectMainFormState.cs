@@ -9,7 +9,7 @@ using System.Windows;
 using System.Windows.Shapes;
 using System.Windows.Media;
 
-namespace Factory2
+namespace Factory
 {
     class MainFormConnectState : IMainFormState
     {

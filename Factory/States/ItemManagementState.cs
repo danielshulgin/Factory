@@ -4,17 +4,21 @@ using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Markup;
+using Factory.DAL;
+using Factory.Domain;
 
-namespace Factory2
+namespace Factory
 {
     class ItemManagementState : IMainFormState
     {
         MainWindow mainWindow;
+
+        Dictionary<Button, DetailType> detailsTypesButtons;
         public void Activate(MainWindow mainWindow)
         {
             this.mainWindow = mainWindow;
+            detailsTypesButtons = new Dictionary<Button, DetailType>();
             mainWindow.ItemManagementMenu.Visibility = System.Windows.Visibility.Visible;
-            mainWindow.AddDetailButton.Click += ActivateDialog;
             mainWindow.ItemManagementCloseButton.Click += Deactivate;
             mainWindow.detailButton.Click += OnDetailsButton;
             mainWindow.machineTypesButton.Click += OnMachineTypeButton;
@@ -24,7 +28,6 @@ namespace Factory2
         public void Deactivate()
         {
             mainWindow.ItemManagementMenu.Visibility = System.Windows.Visibility.Hidden;
-            mainWindow.AddDetailButton.Click -= ActivateDialog;
             mainWindow.ItemManagementCloseButton.Click -= Deactivate;
             mainWindow.detailButton.Click -= OnDetailsButton;
             mainWindow.machineTypesButton.Click -= OnMachineTypeButton;
@@ -46,23 +49,44 @@ namespace Factory2
             mainWindow.ActivateItemDialog("Detail", new List<string>() { "Weight", "Size", "Id"});
         }
 
+        public void ActivateDetailTypesDialog(object sender, RoutedEventArgs e)
+        {
+            mainWindow.ActivateItemDialog("Detail", new List<string>() { "Name" });
+        }
+
+        public void ActivateMachineTypesDialog(object sender, RoutedEventArgs e)
+        {
+            mainWindow.ActivateItemDialog("Detail", new List<string>() { "MachineName" });
+        }
+
         public void OnDetailsButton(object sender, RoutedEventArgs e)
         {
-            //for (int i = 0; i < length; i++)
-            //{
-
-            //}
-            Button btn = new Button();
-            btn.Content = "Dynamic Button";
-            btn.Height = 20;
-            btn.Background = System.Windows.Media.Brushes.Azure;
-            //btn.Name = "detailsButton" + i;
-            mainWindow.itemManagementMenuStackPanel.Children.Add(btn);
+            mainWindow.AddTypeButton.Click += ActivateDetailTypesDialog;
+            mainWindow.AddTypeButton.Click -= ActivateMachineTypesDialog;
+            foreach (var detailType in mainWindow.database.GetAllDetailsTypes())
+            {
+                Button btn = new Button();
+                btn.Content = detailType.Name;
+                btn.Height = 20;
+                btn.Background = System.Windows.Media.Brushes.Azure;
+                detailsTypesButtons[btn] = detailType;
+                mainWindow.itemManagementMenuStackPanel.Children.Add(btn);
+            }
         }
 
         public void OnMachineTypeButton(object sender, RoutedEventArgs e)
         {
-            mainWindow.itemManagementMenuStackPanel.Children.Clear();
+            mainWindow.AddTypeButton.Click += ActivateMachineTypesDialog;
+            mainWindow.AddTypeButton.Click -= ActivateDetailTypesDialog;
+            foreach (var detailType in mainWindow.database.GetAllDetailsTypes())
+            {
+                Button btn = new Button();
+                btn.Content = detailType.Name;
+                btn.Height = 20;
+                btn.Background = System.Windows.Media.Brushes.Azure;
+                detailsTypesButtons[btn] = detailType;
+                mainWindow.itemManagementMenuStackPanel.Children.Add(btn);
+            }
         }
     }
 }

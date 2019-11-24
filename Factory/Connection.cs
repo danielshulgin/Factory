@@ -4,7 +4,7 @@ using System.Diagnostics.CodeAnalysis;
 using System.Drawing;
 using System.Text;
 
-namespace Factory2
+namespace Factory
 {
     //public class Connection : IEquatable<Connection>
     //{

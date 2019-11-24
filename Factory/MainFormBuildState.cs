@@ -8,7 +8,7 @@ using System.Windows.Controls;
 using System.Windows.Input;
 
 
-namespace Factory2
+namespace Factory
 {
     class MainFormBuildState : IMainFormState
     {

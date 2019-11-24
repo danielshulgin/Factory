@@ -7,8 +7,9 @@ using System.Windows.Markup;
 using System.Windows.Shapes;
 using System.Windows.Threading;
 using Factory.Domain;
+using Factory.DAL;
 
-namespace Factory2
+namespace Factory
 {
     public partial class MainWindow : Window
     {
@@ -17,7 +18,8 @@ namespace Factory2
         public Dictionary<Line, Transporter> transporters;
         private DispatcherTimer _timer;
         private Dictionary<Button, EntityOnTransposter> _entitiesButtons;
-        
+        public Database database;
+
         public MainWindow()
         {
             InitializeComponent();
@@ -26,6 +28,8 @@ namespace Factory2
             automaticMachines = new Dictionary<Button, Machine>();
             transporters = new Dictionary<Line, Transporter>();
             _entitiesButtons = new Dictionary<Button, EntityOnTransposter>();
+
+            database = new Database();
 
             ChangeMode(new ItemManagementState());
             StartStateUpdate();
@@ -46,7 +50,27 @@ namespace Factory2
 
         private void ItemManagementButton_Click(object sender, RoutedEventArgs e)
         {
-            ChangeMode(new ItemManagementState());
+            var app = Application.Current;
+            var expenseReport = (EditorData)app.FindResource("EditorData");
+
+            expenseReport.LineItems.Add(new DetailData() { Name = "TOP SECRET"});
+
+            //ChangeMode(new ItemManagementState());
+            var dlg = new Editor { Owner = this };
+            dlg.Show();
+            dlg.Closed += (d, b) => DebugCollections();
+        }
+
+        private void DebugCollections()
+        {
+            var app = Application.Current;
+            var expenseReport = (EditorData)app.FindResource("EditorData");
+            List<DetailType> detailTypes= new List<DetailType>();
+            foreach (var item in expenseReport.LineItems)
+            {
+                detailTypes.Add(new DetailType(item.Name));
+            }
+            
         }
 
 
