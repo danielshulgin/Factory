@@ -40,7 +40,7 @@ namespace Factory.DAL
         }
 
 
-        private int _cost;
+        private int _timeToCreateDetail;
         private string _description = "(Description)";
         private string _name = "(Expense type)";
 
@@ -49,7 +49,7 @@ namespace Factory.DAL
         public MachineData() : base()
         {
             details = new MachineDetails();
-            details.CollectionChanged += (e, d) => OnPropertyChanged("details");
+            details.CollectionChanged += (e, d) => OnPropertyChanged("Details");
         }
 
         public string Name
@@ -72,13 +72,13 @@ namespace Factory.DAL
             }
         }
 
-        public int Cost
+        public int TimeToCreateDetail
         {
-            get { return _cost; }
+            get { return _timeToCreateDetail; }
             set
             {
-                _cost = value;
-                OnPropertyChanged("Cost");
+                _timeToCreateDetail = value;
+                OnPropertyChanged("TimeToCreateDetail");
             }
         }
 
@@ -99,7 +99,7 @@ namespace Factory.DAL
             set
             {
                 _name = value;
-                OnPropertyChanged(_name);
+                OnPropertyChanged("Name");
             }
         }
 

@@ -7,11 +7,13 @@ namespace Factory.DAL
 {
     public class EditorData : INotifyPropertyChanged
     {
-        private string _alias;
-        private string _costCenter;
-        private string _employeeNumber;
-        private int _totalExpenses;
-        private MachineData _selectedMachine;
+        
+        public DetailDataCollection DetailTypes { get; set; }
+        public MachineDataCollection Machines { get; set; }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+
         public MachineData SelectedMachine { 
             get { return _selectedMachine; }
             set
@@ -19,25 +21,15 @@ namespace Factory.DAL
                 _selectedMachine = value;
                 OnPropertyChanged("SelectedMachine");
                 OnPropertyChanged("machineDetails");
-                details = machineDetails;
             }
         }
-        private MachineDetails details;
-public MachineDetails machineDetails
-        {
-            get
-            { 
-                return details;
-            }
-        }
+        
 
         public EditorData()
         {
-            //SelectedMachine = new MachineData();
-            details = new MachineDetails();
-            LineItems = new DetailDataCollection();
+            DetailTypes = new DetailDataCollection();
             Machines = new MachineDataCollection();
-            LineItems.LineItemCostChanged += OnLineItemCostChanged;
+            DetailTypes.LineItemCostChanged += OnLineItemCostChanged;
         }
 
         public string Alias
@@ -72,7 +64,6 @@ public MachineDetails machineDetails
 
         public int TotalExpenses
         {
-            // calculated property, no setter
             get
             {
                 RecalculateTotalExpense();
@@ -80,10 +71,11 @@ public MachineDetails machineDetails
             }
         }
 
-        public DetailDataCollection LineItems { get; set; }
-        public MachineDataCollection Machines { get; set; }
-        public List<SData> list = new List<SData>() {new SData("Name"), new SData("Name1") };
-        public event PropertyChangedEventHandler PropertyChanged;
+        private string _alias;
+        private string _costCenter;
+        private string _employeeNumber;
+        private int _totalExpenses;
+        private MachineData _selectedMachine;
 
         private void OnLineItemCostChanged(object sender, EventArgs e)
         {
@@ -93,7 +85,7 @@ public MachineDetails machineDetails
         private void RecalculateTotalExpense()
         {
             _totalExpenses = 0;
-            foreach (var item in LineItems)
+            foreach (var item in DetailTypes)
                 _totalExpenses += item.Cost;
         }
 

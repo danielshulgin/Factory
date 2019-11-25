@@ -9,13 +9,13 @@
                           Alias="Someone@example.com"
                        EmployeeNumber="57304"
                        CostCenter="4032">
-            <dal:EditorData.LineItems>
+            <dal:EditorData.DetailTypes>
                 <dal:DetailData Name="R2D2_CPU" Description="Mexican Lunch" Cost="12" />
                 <dal:DetailData Name="Meal" Description="Italian Dinner" Cost="45" />
                 <dal:DetailData Name="Education" Description="Developer Conference" Cost="90" />
                 <dal:DetailData Name="Tradvel" Description="Taxi" Cost="70" />
                 <dal:DetailData Name="Travel" Description="Hotel" Cost="60" />
-            </dal:EditorData.LineItems>
+            </dal:EditorData.DetailTypes>
             
         </dal:EditorData>
     </Application.Resources>

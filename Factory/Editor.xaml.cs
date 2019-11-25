@@ -20,20 +20,25 @@ namespace Factory
     /// </summary>
     public partial class Editor : Window
     {
+        private EditorData _editorData;
+        private EditorData EditorData{
+            get
+            {
+                if (_editorData == null)
+                {
+                    _editorData = GetEditorData();
+                }
+                return _editorData;
+            } 
+        }
         public Editor()
         {
             InitializeComponent();
-            var app = Application.Current;
-            //MachineTypeCollection machineTypeCollection = (MachineTypeCollection)app.FindResource("MachineTypeCollection");
-            //machineTypeCollection.lineItems = (EditorData)app.FindResource("EditorData").;
-            //var expenseReport = (EditorData)app.FindResource("EditorData");
         }
 
-        private void addExpenseButton_Click(object sender, RoutedEventArgs e)
+        private void AddDetailTypeButton_Click(object sender, RoutedEventArgs e)
         {
-            var app = Application.Current;
-            var expenseReport = (EditorData)app.FindResource("EditorData");
-            expenseReport?.LineItems.Add(new DetailData());
+            EditorData.DetailTypes.Add(new DetailData());
         }
 
         private void Grid_MouseRightButtonDown(object sender, MouseButtonEventArgs e)
@@ -43,36 +48,35 @@ namespace Factory
 
         private void RemoveDetailDataButton_Click(object sender, RoutedEventArgs e)
         {
-            var app = Application.Current;
             object Name = ((Button)sender).CommandParameter;
-            var expenseReport = (EditorData)app.FindResource("EditorData");
-            expenseReport?.LineItems.Remove(Name.ToString());
+            EditorData.DetailTypes.Remove(Name.ToString());
         }
 
-        private void addMachineDataButton_Click(object sender, RoutedEventArgs e)
+        private void AddMachineDataButton_Click(object sender, RoutedEventArgs e)
         {
-            var app = Application.Current;
-            var expenseReport = (EditorData)app.FindResource("EditorData");
-            expenseReport?.Machines.Add(new MachineData());
+            EditorData.Machines.Add(new MachineData());
         }
 
-        private void addDetailToMachineButton_Click(object sender, RoutedEventArgs e)
+        private static EditorData GetEditorData()
         {
             var app = Application.Current;
-            var expenseReport = (EditorData)app.FindResource("EditorData");
-            if (expenseReport?.SelectedMachine != null)
+            var editorData = (EditorData)app.FindResource("EditorData");
+            return editorData;
+        }
+
+        private void AddDetailToMachineButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (EditorData.SelectedMachine != null)
             {
                 var dlg = new MachineDetailsEditor { Owner = this };
                 dlg.Show();
             }
         }
 
-        private void selectMachineButton_Click(object sender, RoutedEventArgs e)
+        private void SelectMachineButton_Click(object sender, RoutedEventArgs e)
         {
-            var app = Application.Current;
             object Name = ((Button)sender).CommandParameter;
-            var expenseReport = (EditorData)app.FindResource("EditorData");
-            expenseReport.SelectedMachine = (expenseReport.Machines as ObservableCollection<MachineData>)
+            EditorData.SelectedMachine = (EditorData.Machines as ObservableCollection<MachineData>)
                 .Where(i => i.Name == Name.ToString()).First();
             var dlg = new MachineDetailsEditor { Owner = this };
             dlg.Show();
@@ -80,10 +84,10 @@ namespace Factory
 
         private void RemoveMachineDataButton_Click(object sender, RoutedEventArgs e)
         {
-            var app = Application.Current;
             object Name = ((Button)sender).CommandParameter;
-            var expenseReport = (EditorData)app.FindResource("EditorData");
-            expenseReport?.Machines.Remove(Name.ToString());
+            EditorData.Machines.Remove(Name.ToString());
         }
+
+
     }
 }

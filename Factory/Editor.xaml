@@ -42,7 +42,7 @@
                 </TextBox>
                 <Button Grid.Column="3" Click="RemoveDetailDataButton_Click" CommandParameter="{Binding Path = Name}">
                     <StackPanel Orientation="Horizontal">
-                        <TextBlock FontSize="17">add expense</TextBlock>
+                        <TextBlock FontSize="17">remove</TextBlock>
                     </StackPanel>
                 </Button>
             </Grid>
@@ -59,7 +59,7 @@
                 <TextBox Text="{Binding Path=Name}" Grid.Column="0" />
                 <TextBox Grid.Column="1" TextAlignment="Right">
                     <TextBox.Text>
-                        <Binding Path="Cost" UpdateSourceTrigger="PropertyChanged">
+                        <Binding Path="TimeToCreateDetail" UpdateSourceTrigger="PropertyChanged">
                             <Binding.ValidationRules>
                                 <local:NumberValidationRule/>
                             </Binding.ValidationRules>
@@ -67,7 +67,7 @@
                     </TextBox.Text>
 
                 </TextBox>
-                <Button Grid.Column="2" Click="selectMachineButton_Click" CommandParameter="{Binding Path = Name}">
+                <Button Grid.Column="2" Click="SelectMachineButton_Click" CommandParameter="{Binding Path = Name}">
                     <StackPanel Orientation="Horizontal">
                         <TextBlock FontSize="17">select machine</TextBlock>
                     </StackPanel>
@@ -92,7 +92,7 @@
     </Window.Resources>
     <Grid>
         <TabControl Grid.Column="0" Grid.Row="1" Margin="0,12,0,0" Name="tabControl">
-            <TabItem Header="Family and typeface samples" Name="samplesTab">
+            <TabItem Header="Detail Types Editor" Name="samplesTab">
 
                 <Grid>
                     <Grid.ColumnDefinitions>
@@ -108,30 +108,28 @@
                         <RowDefinition Height="500*" />
                         <RowDefinition Height="50" />
                     </Grid.RowDefinitions>
-                    <TextBlock Grid.Row="0" Grid.Column="1" FontWeight="Bold">Expense type</TextBlock>
-                    <TextBlock Grid.Row="0" Grid.Column="2" FontWeight="Bold">Expense type</TextBlock>
-                    <TextBlock Grid.Row="0" Grid.Column="3" FontWeight="Bold">Expense type</TextBlock>
+                    <TextBlock Grid.Row="0" Grid.Column="1" FontWeight="Bold">Name</TextBlock>
+                    <TextBlock Grid.Row="0" Grid.Column="2" FontWeight="Bold">Description</TextBlock>
+                    <TextBlock Grid.Row="0" Grid.Column="3" FontWeight="Bold">Cost</TextBlock>
                     <ItemsControl Grid.Column="1" Grid.Row="1" Name="expensesItemsControl"
                           Style="{StaticResource ExpenseScroller}"
                           Grid.ColumnSpan="4"
                           ItemTemplate="{StaticResource ExpenseTemplate}"
-                          ItemsSource="{Binding Path = LineItems}" />
-                    <Button Click="addExpenseButton_Click" Grid.Row="2" Grid.Column="4">
+                          ItemsSource="{Binding Path = DetailTypes}" />
+                    <Button Click="AddDetailTypeButton_Click" Grid.Row="2" Grid.Column="4">
                         <StackPanel Orientation="Horizontal">
-                            <TextBlock FontSize="17">add expense</TextBlock>
+                            <TextBlock FontSize="17">Add detail type</TextBlock>
                         </StackPanel>
                     </Button>
                 </Grid>
             </TabItem>
-            <TabItem Header="Typographic Features" Name="typographyTab">
+            <TabItem Header="Machine Type Editor" Name="typographyTab">
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="4*" />
                         <ColumnDefinition Width="18*" />
                         <ColumnDefinition Width="18*" />
                         <ColumnDefinition Width="18*" />
-                        <ColumnDefinition Width="18*" />
-                        <ColumnDefinition Width="2*" />
                         <ColumnDefinition Width="18*" />
                         <ColumnDefinition Width="4*" />
                     </Grid.ColumnDefinitions>
@@ -140,30 +138,17 @@
                         <RowDefinition Height="500*" />
                         <RowDefinition Height="50" />
                     </Grid.RowDefinitions>
-                    <TextBlock Grid.Row="0" Grid.Column="1" FontWeight="Bold">Expense type</TextBlock>
-                    <TextBlock Grid.Row="0" Grid.Column="2" FontWeight="Bold">Expense type</TextBlock>
+                    <TextBlock Grid.Row="0" Grid.Column="1" FontWeight="Bold">Name</TextBlock>
+                    <TextBlock Grid.Row="0" Grid.Column="2" FontWeight="Bold">Time to create detail</TextBlock>
 
                     <ItemsControl Grid.Column="1" Grid.Row="1" Name="expensesItemsControl1"
                           Style="{StaticResource ExpenseScroller}"
                           Grid.ColumnSpan="4"
                           ItemTemplate="{StaticResource MachineDataLine}"
                           ItemsSource="{Binding Path = Machines}" />
-                    <ItemsControl Grid.Column="6" Grid.Row="1" Name="expensesItemsControl2"
-                          Style="{StaticResource ExpenseScroller}"
-                          Grid.ColumnSpan="1"
-                          ItemTemplate="{StaticResource DetailThatTheMachineAdd}"
-                          ItemsSource="{Binding Path = machineDetails, UpdateSourceTrigger=PropertyChanged}" />
-                    <!--<ComboBox x:Name="cbxRLFDBInstances" Grid.Row="2" Grid.Column="2" ItemsSource="{Binding Path=LineItems}" 
-              SelectedItem="{Binding SelectedDBInstance, UpdateSourceTrigger=PropertyChanged}" 
-              DisplayMemberPath="Type"/>-->
-                    <Button Click="addMachineDataButton_Click" Grid.Row="2" Grid.Column="4">
+                    <Button Click="AddMachineDataButton_Click" Grid.Row="2" Grid.Column="4">
                         <StackPanel Orientation="Horizontal">
-                            <TextBlock FontSize="17">add machine</TextBlock>
-                        </StackPanel>
-                    </Button>
-                    <Button Click="addDetailToMachineButton_Click" Grid.Row="2" Grid.Column="6">
-                        <StackPanel Orientation="Horizontal">
-                            <TextBlock FontSize="17">add detail</TextBlock>
+                            <TextBlock FontSize="17">Add machine</TextBlock>
                         </StackPanel>
                     </Button>
                 </Grid>

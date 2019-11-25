@@ -7,7 +7,7 @@
         xmlns:local="clr-namespace:Factory"
         mc:Ignorable="d"
         DataContext="{StaticResource EditorData}"
-        Title="Editor" Height="598" Width="704">
+        Title="Editor" Height="598" Width="282">
     <Window.Resources>
         <Style x:Key="ExpenseScroller" TargetType="{x:Type ItemsControl}">
             <Setter Property="Template">
@@ -33,36 +33,27 @@
     </Window.Resources>
     <Grid>
         <TabControl Grid.Column="0" Grid.Row="1" Margin="0,12,0,0" Name="tabControl">
-            <TabItem Header="Typographic Features" Name="typographyTab">
+            <TabItem Header="Details" Name="typographyTab">
                 <Grid>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="4*" />
+                        <ColumnDefinition Width="20" />
                         <ColumnDefinition Width="18*" />
-                        <ColumnDefinition Width="18*" />
-                        <ColumnDefinition Width="18*" />
-                        <ColumnDefinition Width="18*" />
-                        <ColumnDefinition Width="2*" />
-                        <ColumnDefinition Width="18*" />
-                        <ColumnDefinition Width="4*" />
+                        <ColumnDefinition Width="20" />
                     </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="30" />
                         <RowDefinition Height="500*" />
                         <RowDefinition Height="50" />
                     </Grid.RowDefinitions>
-                    <TextBlock Grid.Row="0" Grid.Column="1" FontWeight="Bold">Expense type</TextBlock>
-                    <TextBlock Grid.Row="0" Grid.Column="2" FontWeight="Bold">Expense type</TextBlock>
+                    <TextBlock Grid.Row="0" Grid.Column="1" FontWeight="Bold">Detail</TextBlock>
 
-                    <ItemsControl Grid.Column="6" Grid.Row="1" Name="expensesItemsControl2"
+                    <ItemsControl Grid.Column="1" Grid.Row="1" Name="expensesItemsControl2"
                           Style="{StaticResource ExpenseScroller}"
                           Grid.ColumnSpan="1"
                           ItemTemplate="{StaticResource DetailThatTheMachineAdd}"
                           ItemsSource="{Binding Path = SelectedMachine, UpdateSourceTrigger=PropertyChanged}" />
-                    <!--<ComboBox x:Name="cbxRLFDBInstances" Grid.Row="2" Grid.Column="2" ItemsSource="{Binding Path=LineItems}" 
-              SelectedItem="{Binding SelectedDBInstance, UpdateSourceTrigger=PropertyChanged}" 
-              DisplayMemberPath="Type"/>-->
-                    
-                    <Button Click="addDetailToMachineButton_Click" Grid.Row="2" Grid.Column="6">
+
+                    <Button Click="AddDetailToMachineButton_Click" Grid.Row="2" Grid.Column="1">
                         <StackPanel Orientation="Horizontal">
                             <TextBlock FontSize="17">add detail</TextBlock>
                         </StackPanel>

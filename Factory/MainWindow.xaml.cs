@@ -53,7 +53,7 @@ namespace Factory
             var app = Application.Current;
             var expenseReport = (EditorData)app.FindResource("EditorData");
 
-            expenseReport.LineItems.Add(new DetailData() { Name = "TOP SECRET"});
+            expenseReport.DetailTypes.Add(new DetailData() { Name = "TOP SECRET"});
 
             //ChangeMode(new ItemManagementState());
             var dlg = new Editor { Owner = this };
@@ -66,7 +66,7 @@ namespace Factory
             var app = Application.Current;
             var expenseReport = (EditorData)app.FindResource("EditorData");
             List<DetailType> detailTypes= new List<DetailType>();
-            foreach (var item in expenseReport.LineItems)
+            foreach (var item in expenseReport.DetailTypes)
             {
                 detailTypes.Add(new DetailType(item.Name));
             }

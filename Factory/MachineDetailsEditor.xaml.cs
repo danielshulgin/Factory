@@ -23,7 +23,7 @@ namespace Factory
             InitializeComponent();
         }
 
-        private void addDetailToMachineButton_Click(object sender, RoutedEventArgs e)
+        private void AddDetailToMachineButton_Click(object sender, RoutedEventArgs e)
         {
             var app = Application.Current;
             var expenseReport = (EditorData)app.FindResource("EditorData");

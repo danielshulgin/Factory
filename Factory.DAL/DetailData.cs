@@ -7,9 +7,9 @@ namespace Factory.DAL
 {
     public class DetailData : INotifyPropertyChanged
     {
-        private int _cost;
-        private string _description = "(Description)";
-        private string _name = "(Expense type)";
+        private int _cost = 0;
+        private string _description = "(empty description)";
+        private string _name = "(empty name)";
 
         public string Name
         {
