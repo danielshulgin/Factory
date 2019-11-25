@@ -3,7 +3,7 @@
 
 using System.ComponentModel;
 
-namespace Factory
+namespace Factory.DAL
 {
     public class DetailData : INotifyPropertyChanged
     {

@@ -11,6 +11,7 @@ using System.Linq;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.Collections.ObjectModel;
+using Factory.DAL;
 
 namespace Factory
 {

@@ -3,14 +3,15 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 
-namespace Factory
+
+namespace Factory.DAL
 {
-    public class MachineDataCollection : ObservableCollection<MachineData>
+    public class MachineDetails : ObservableCollection<DetailInMachine>
     {
         public event EventHandler LineItemCostChanged;
 
         public DetailDataCollection lineItems;
-        public new void Add(MachineData item)
+        public new void Add(DetailInMachine item)
         {
             if (item != null)
             {
@@ -34,7 +35,7 @@ namespace Factory
 
         public void Remove(string Name)
         {
-            base.Remove((this as ObservableCollection<MachineData>).Where(i => i.Name == Name).First());
+            base.Remove((this as ObservableCollection<DetailInMachine>).Where(i => i.Name == Name).First());
         }
     }
 }

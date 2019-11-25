@@ -7,13 +7,11 @@ using System.ComponentModel;
 using System.Linq;
 using System.Windows;
 
-namespace Factory
+namespace Factory.DAL
 {
     public class DetailDataCollection : ObservableCollection<DetailData>
     {
         public event EventHandler LineItemCostChanged;
-
-        public DetailDataCollection lineItems;
 
         public object Message { get; private set; }
 

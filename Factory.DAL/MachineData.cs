@@ -5,7 +5,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 
-namespace Factory
+namespace Factory.DAL
 {
     public class MachineData : ObservableCollection<DetailInMachine>, INotifyPropertyChanged
     {

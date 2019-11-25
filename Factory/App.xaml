@@ -2,20 +2,21 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="clr-namespace:Factory"
+             xmlns:dal="clr-namespace:Factory.DAL;assembly=Factory.DAL"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-        <local:EditorData x:Key="EditorData"
+        <dal:EditorData x:Key="EditorData"
                           Alias="Someone@example.com"
                        EmployeeNumber="57304"
                        CostCenter="4032">
-            <local:EditorData.LineItems>
-                <local:DetailData Name="R2D2_CPU" Description="Mexican Lunch" Cost="12" />
-                <local:DetailData Name="Meal" Description="Italian Dinner" Cost="45" />
-                <local:DetailData Name="Education" Description="Developer Conference" Cost="90" />
-                <local:DetailData Name="Tradvel" Description="Taxi" Cost="70" />
-                <local:DetailData Name="Travel" Description="Hotel" Cost="60" />
-            </local:EditorData.LineItems>
+            <dal:EditorData.LineItems>
+                <dal:DetailData Name="R2D2_CPU" Description="Mexican Lunch" Cost="12" />
+                <dal:DetailData Name="Meal" Description="Italian Dinner" Cost="45" />
+                <dal:DetailData Name="Education" Description="Developer Conference" Cost="90" />
+                <dal:DetailData Name="Tradvel" Description="Taxi" Cost="70" />
+                <dal:DetailData Name="Travel" Description="Hotel" Cost="60" />
+            </dal:EditorData.LineItems>
             
-        </local:EditorData>
+        </dal:EditorData>
     </Application.Resources>
 </Application>

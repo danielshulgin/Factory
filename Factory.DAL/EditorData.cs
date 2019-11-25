@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 
-namespace Factory
+namespace Factory.DAL
 {
     public class EditorData : INotifyPropertyChanged
     {
