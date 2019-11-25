@@ -57,7 +57,7 @@ namespace Factory
             EditorData.Machines.Add(new MachineData());
         }
 
-        private static EditorData GetEditorData()
+        private EditorData GetEditorData()
         {
             var app = Application.Current;
             var editorData = (EditorData)app.FindResource("EditorData");

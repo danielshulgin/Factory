@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Factory.Domain
 {
-    public class Transporter : Machine
+    public class Transporter :  MachineBase
     {
         public double Progress { get; private set; }
         public float PositionDelta { get; private set; }
@@ -24,7 +24,8 @@ namespace Factory.Domain
 
         public override void HandleEntity()
         {
-            base.HandleEntity();
+            if (_entitiesQueue.Count > 0)
+                _entitiesInProcess.Enqueue(_entitiesQueue.Dequeue());
         }
 
         public override void Update(DateTime currentDateTime)
@@ -45,7 +46,12 @@ namespace Factory.Domain
             {
                 EndTransportingEntity();
             }
-            base.Update(currentDateTime);
+            if (CanHandle())
+            {
+                EndHandleEntity();
+                HandleEntity();
+                _timeOfStartHandling = currentDateTime;
+            }
         }
 
         public override void EndHandleEntity()
@@ -61,6 +67,26 @@ namespace Factory.Domain
         {
             var entity = _entitiesOnTransporter.Dequeue().EndTransporting();
             _entitiesComplete.Enqueue(entity);
+        }
+
+        public override void Accept(Entity entity)
+        {
+            _entitiesQueue.Enqueue(entity);
+        }
+
+        public override bool CanHandle()
+        {
+            return ((DateTime.Now - _timeOfStartHandling).TotalSeconds > EntityHandleTime) ||
+                _timeOfStartHandling == null;
+        }
+
+        public override Entity YieldEntity()
+        {
+            if (_entitiesComplete.Count > 0)
+            {
+                return _entitiesComplete.Dequeue();
+            }
+            return null;
         }
     }
 }

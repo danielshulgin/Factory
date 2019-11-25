@@ -6,9 +6,9 @@ namespace Factory.Domain
 {
     public class MachineLine
     {
-        private List<Machine> _machines;
+        private List<MachineBase> _machines;
 
-        public MachineLine(List<Machine> machines)
+        public MachineLine(List<MachineBase> machines)
         {
             this._machines = machines;
         }
@@ -19,13 +19,13 @@ namespace Factory.Domain
             {
                 for (int i = 0; i < _machines.Count - 1; i++)
                 {
-                    Machine nextMachine = _machines[i + 1];
+                    MachineBase nextMachine = _machines[i + 1];
                     UpdateMachine(_machines[i], nextMachine, currentDateTime);
                 }
             }
         }
 
-        private void UpdateMachine(Machine machine, Machine nextMachine, DateTime currentDateTime)
+        private void UpdateMachine(MachineBase machine, MachineBase nextMachine, DateTime currentDateTime)
         {
             machine.Update(currentDateTime);
             if (machine.CompleteEntityNumber > 0)

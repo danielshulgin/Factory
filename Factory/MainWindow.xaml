@@ -14,33 +14,15 @@
             <ComboBoxItem Content="ConnectMode"></ComboBoxItem>
             <ComboBoxItem Content="ActiveMode"></ComboBoxItem>
         </ComboBox>
+        <ComboBox x:Name="machineTypeComboBox" HorizontalAlignment="Left" SelectionChanged ="ComboBox_SelectionChanged"  
+                  Margin="36,160,0,0" VerticalAlignment="Top" Width="120" >
+        </ComboBox>
+        
+        <ComboBox x:Name="machineGeneralComboBox" HorizontalAlignment="Left" SelectionChanged ="ComboBox_SelectionChanged"  
+                  Margin="36,201,0,0" VerticalAlignment="Top" Width="120" SelectedIndex="0" >
+        </ComboBox>
         <Canvas x:Name="myCanvas" Margin="160,0,0,0"/>
 
-        <Canvas x:Name="ItemManagementMenu" Margin="155,57,98,79" Height="230" Width="550" Background="SkyBlue" Visibility="Visible">
-            <StackPanel Orientation ="Horizontal" Width="547">
-                <StackPanel OverridesDefaultStyle="False"  Height="193" Width="194">
-                    <Button Name="detailButton" Content="Details"/>
-                    <Button Name="machineTypesButton" Content="MachineTypes"/>
-                </StackPanel>
-                <StackPanel OverridesDefaultStyle="False"  Height="193" Width="230" Visibility="Visible">
-                    <StackPanel Background="LightSteelBlue" Orientation ="Horizontal">
-                        <Button Name="AddTypeButton" Content="Add" Width="80" Margin="1,0,10,0"/>
-                        <Button Name="DeleteTypeButton" Content="Delete" Width="80" Margin="1,0,10,0"/>
-                    </StackPanel>
-                    <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Visible" HorizontalScrollBarVisibility="Auto" Height="200" CanContentScroll="True" Width="230">
-                        <StackPanel x:Name="itemManagementMenuStackPanel" OverridesDefaultStyle="False"  Height="193" Width="194">
-                            <Button Content="LOL" Height="20" Background="Azure"/>
-                            <Button Content="LOL" Height="20" Background="Azure"/>
-                            <Button Content="LOL" Height="20" Background="Azure"/>
-                            <Button Content="LOL" Height="20" Background="Azure"/>
-                            <Button Content="LOL" Height="20" Background="Azure"/>
-                            <TextBox Height="30"/>
-                        </StackPanel>
-                    </ScrollViewer>
-                </StackPanel>
-                <Button Name="ItemManagementCloseButton" Content="Close" Height="20" Width="90" Margin="33,0,0,0" VerticalAlignment="Top"/>
-            </StackPanel>
-        </Canvas>
         <Canvas x:Name="ItemDialog" Margin="304,71,228,93" Background="LightBlue" Height="276" Width="270" Visibility="Hidden">
             <Label Name="ItemDialogItemTypeName" Content="Item Name" Background="White" Canvas.Left="18" Canvas.Top="16" Height="23" Width="79"/>
             <TextBox Name="ItemDialogItemName" Canvas.Left="110" Canvas.Top="16" Text="TextBox" Background="White" TextWrapping="Wrap" Width="141" Height="23"/>

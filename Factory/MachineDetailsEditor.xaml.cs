@@ -26,8 +26,8 @@ namespace Factory
         private void AddDetailToMachineButton_Click(object sender, RoutedEventArgs e)
         {
             var app = Application.Current;
-            var expenseReport = (EditorData)app.FindResource("EditorData");
-            expenseReport?.SelectedMachine.Add(new DetailInMachine());
+            var editorData = (EditorData)app.FindResource("EditorData");
+            editorData.SelectedMachine.Add(new DetailInMachine());
         }
     }
 }

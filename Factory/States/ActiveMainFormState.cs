@@ -17,9 +17,9 @@ namespace Factory
         public void Activate(MainWindow mainWindow)
         {
             this.mainWindow = mainWindow;
-            List<Machine> automaticMachines = mainWindow.automaticMachines.Select(pair => pair.Value).ToList();
-            List<Machine> transporters = mainWindow.transporters.Select(pair => pair.Value as Machine).ToList();
-            List<Machine> machines = new List<Machine>();
+            List<MachineBase> automaticMachines = mainWindow.automaticMachines.Select(pair => pair.Value as MachineBase).ToList();
+            List<MachineBase> transporters = mainWindow.transporters.Select(pair => pair.Value as MachineBase).ToList();
+            List<MachineBase> machines = new List<MachineBase>();
             machines.Add(mainWindow.automaticMachines.FirstOrDefault().Value);
             for (int i = 0; i < automaticMachines.Count - 1; i++)
             {
@@ -126,11 +126,11 @@ namespace Factory
         {
             if (mainWindow.automaticMachines.Count > 0)
             {
-                if (mainWindow.automaticMachines.Values.First().CanHandle() && count <= 5)
+                /*if (mainWindow.automaticMachines.Values.First().CanHandle() && count <= 5)
                 {
                     mainWindow.automaticMachines.Values.First().Accept(new Entity());
                     count++;
-                }
+                }*/
 
                 foreach (var machine in mainWindow.automaticMachines.Values)
                 {

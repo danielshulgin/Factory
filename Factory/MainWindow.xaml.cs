@@ -20,6 +20,20 @@ namespace Factory
         private Dictionary<Button, EntityOnTransposter> _entitiesButtons;
         public Database database;
 
+        private EditorData _editorData;
+
+        public EditorData EditorData
+        {
+            get
+            {
+                if (_editorData == null)
+                {
+                    _editorData = GetEditorData();
+                }
+                return _editorData;
+            }
+        }
+
         public MainWindow()
         {
             InitializeComponent();
@@ -31,9 +45,9 @@ namespace Factory
 
             database = new Database();
 
-            ChangeMode(new ItemManagementState());
             StartStateUpdate();
             comboBox.SelectedIndex = 0;
+            machineGeneralComboBox.ItemsSource = Enum.GetValues(typeof(MachineType));
         }
 
         private void StartStateUpdate()
@@ -50,27 +64,21 @@ namespace Factory
 
         private void ItemManagementButton_Click(object sender, RoutedEventArgs e)
         {
-            var app = Application.Current;
-            var expenseReport = (EditorData)app.FindResource("EditorData");
-
-            expenseReport.DetailTypes.Add(new DetailData() { Name = "TOP SECRET"});
-
-            //ChangeMode(new ItemManagementState());
             var dlg = new Editor { Owner = this };
             dlg.Show();
-            dlg.Closed += (d, b) => DebugCollections();
+            dlg.Closed += (d, b) => ApplyEditorData();
         }
 
-        private void DebugCollections()
+        private void ApplyEditorData()
         {
             var app = Application.Current;
             var expenseReport = (EditorData)app.FindResource("EditorData");
             List<DetailType> detailTypes= new List<DetailType>();
-            foreach (var item in expenseReport.DetailTypes)
+            foreach (var item in expenseReport.Machines)
             {
                 detailTypes.Add(new DetailType(item.Name));
             }
-            
+            machineTypeComboBox.ItemsSource = expenseReport.Machines.Select(machine => machine.Name).ToList();
         }
 
 
@@ -149,9 +157,21 @@ namespace Factory
             }
         }
 
+        private EditorData GetEditorData()
+        {
+            var app = Application.Current;
+            var editorData = (EditorData)app.FindResource("EditorData");
+            return editorData;
+        }
+
         public void DeactivateItemDialog(object sender, RoutedEventArgs e)
         {
             ItemDialog.Visibility = System.Windows.Visibility.Hidden;
         }
+    }
+
+    public enum MachineType
+    {
+        Source, Base
     }
 }
