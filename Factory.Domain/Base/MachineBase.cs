@@ -25,6 +25,10 @@ namespace Factory.Domain
 
         public MachineBase(float _entityHandleTime, bool active)
         {
+            if (_entityHandleTime < 0 )
+            {
+                throw new Exception("Entity handle time must be greater than zero!");
+            }
             _timeOfStartHandling = DateTime.Now;
 
             _entitiesInProcess = new Queue<Entity>();

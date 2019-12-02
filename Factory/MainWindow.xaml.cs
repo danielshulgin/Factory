@@ -20,9 +20,9 @@ namespace Factory
         private Dictionary<Button, EntityOnTransposter> _entitiesButtons;
         public Database database;
 
-        private EditorData _editorData;
+        private EditorDataViewModel _editorData;
 
-        public EditorData EditorData
+        public EditorDataViewModel EditorData
         {
             get
             {
@@ -72,7 +72,7 @@ namespace Factory
         private void ApplyEditorData()
         {
             var app = Application.Current;
-            var expenseReport = (EditorData)app.FindResource("EditorData");
+            var expenseReport = (EditorDataViewModel)app.FindResource("EditorData");
             List<DetailType> detailTypes= new List<DetailType>();
             foreach (var item in expenseReport.Machines)
             {
@@ -157,10 +157,10 @@ namespace Factory
             }
         }
 
-        private EditorData GetEditorData()
+        private EditorDataViewModel GetEditorData()
         {
             var app = Application.Current;
-            var editorData = (EditorData)app.FindResource("EditorData");
+            var editorData = (EditorDataViewModel)app.FindResource("EditorData");
             return editorData;
         }
 

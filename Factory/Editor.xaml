@@ -28,8 +28,26 @@
                     <ColumnDefinition Width="25*" />
                     <ColumnDefinition Width="25*" />
                 </Grid.ColumnDefinitions>
-                <TextBox Text="{Binding Path=Name}" Grid.Column="0" />
-                <TextBox Text="{Binding Path=Description}" Grid.Column="1" />
+                <TextBox Grid.Column="0" TextAlignment="Right">
+                    <TextBox.Text>
+                        <Binding Path="Name" UpdateSourceTrigger="PropertyChanged">
+                            <Binding.ValidationRules>
+                                <local:NameValidationRule IsLengthConstrains="True" MinLength="4" MaxLength="10"/>
+                            </Binding.ValidationRules>
+                        </Binding>
+                    </TextBox.Text>
+
+                </TextBox>
+                <TextBox Grid.Column="1" TextAlignment="Right">
+                    <TextBox.Text>
+                        <Binding Path="Description" UpdateSourceTrigger="PropertyChanged">
+                            <Binding.ValidationRules>
+                                <local:NameValidationRule IsLengthConstrains="True" MinLength="4" MaxLength="30"/>
+                            </Binding.ValidationRules>
+                        </Binding>
+                    </TextBox.Text>
+
+                </TextBox>
                 <TextBox Grid.Column="2" TextAlignment="Right">
                     <TextBox.Text>
                         <Binding Path="Cost" UpdateSourceTrigger="PropertyChanged">

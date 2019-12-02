@@ -5,18 +5,21 @@ using System.Linq;
 
 namespace Factory.DAL
 {
-    public class MachineDataCollection : ObservableCollection<MachineData>
+    public class MachineCollectionViewModel : ObservableCollection<MachineViewModel>
     {
         public event EventHandler LineItemCostChanged;
 
-        public DetailDataCollection lineItems;
-        public new void Add(MachineData item)
+        public DetailCollectionViewModel lineItems;
+        public new void Add(MachineViewModel item)
         {
             if (item != null)
             {
                 item.PropertyChanged += LineItemPropertyChanged;
             }
-            base.Add(item);
+            if (this.Where(machine => machine.Name == item.Name).Count() == 0)
+            {
+                base.Add(item);
+            }
         }
 
         private void LineItemPropertyChanged(object sender, PropertyChangedEventArgs e)
@@ -34,7 +37,7 @@ namespace Factory.DAL
 
         public void Remove(string Name)
         {
-            base.Remove((this as ObservableCollection<MachineData>).Where(i => i.Name == Name).First());
+            base.Remove((this as ObservableCollection<MachineViewModel>).Where(i => i.Name == Name).First());
         }
     }
 }

@@ -13,6 +13,14 @@ namespace Factory.Domain
 
         public Detail(string name, Guid guid, int cost = 0)
         {
+            if (cost < 0 )
+            {
+                throw new Exception("Cost must be greater than zero!");
+            }
+            if (guid == Guid.Empty)
+            {
+                throw new Exception("Empty guid");
+            }
             Name = name;
             Cost = cost;
             this.Guid = guid;

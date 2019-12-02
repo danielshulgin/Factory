@@ -60,8 +60,8 @@ namespace Factory
                     currentButton.Click += Form1_MouseClick;
                     mainWindow.myCanvas.Children.Add(currentButton);
                     var machineData = (mainWindow.EditorData.Machines.Where(machine => 
-                    machine.Name == mainWindow.machineTypeComboBox.SelectedItem.ToString()).First() as MachineData);
-                    var addDetails = machineData.Select(detail => new Detail(detail.Name, Guid.NewGuid())).ToList();
+                    machine.Name == mainWindow.machineTypeComboBox.SelectedItem.ToString()).First() as MachineViewModel);
+                    var addDetails = machineData.details.Select(detail => new Detail(detail.Name, Guid.NewGuid())).ToList();
                     if (mainWindow.machineGeneralComboBox.SelectedIndex == 0)
                     {
                         applied[currentButton] = new MachineSource(machineData.TimeToCreateDetail, true, new List<Detail>());

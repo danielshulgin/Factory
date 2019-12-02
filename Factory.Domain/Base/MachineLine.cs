@@ -10,6 +10,10 @@ namespace Factory.Domain
 
         public MachineLine(List<MachineBase> machines)
         {
+            if (machines == null)
+            {
+                throw new NullReferenceException("machines = null");
+            }
             this._machines = machines;
         }
 

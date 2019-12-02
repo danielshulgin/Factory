@@ -10,6 +10,10 @@ namespace Factory.Domain
         
         public Machine(float _entityHandleTime, bool active, List<Detail> detailsToAdd) : base(_entityHandleTime, active)
         {
+            if (detailsToAdd == null)
+            {
+                throw new NullReferenceException("details to add list = null");
+            }
             _detailsToAdd = detailsToAdd;
         }
 
@@ -17,6 +21,10 @@ namespace Factory.Domain
 
         public override void Accept(Entity entity)
         {
+            if (entity == null)
+            {
+                throw new NullReferenceException("accepted entity = null");
+            }
             _entitiesQueue.Enqueue(entity);
         }
 

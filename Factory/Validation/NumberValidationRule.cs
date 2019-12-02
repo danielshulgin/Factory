@@ -40,6 +40,12 @@ namespace Factory
                 return new ValidationResult(false, msg);
             }
 
+            if (number < 0)
+            {
+                var msg = $"Number must be greater than 0";
+                return new ValidationResult(false, msg);
+            }
+
             // Number is valid
             return new ValidationResult(true, null);
         }

@@ -63,7 +63,7 @@ namespace Factory.Domain
             }
         }
 
-        public virtual void EndTransportingEntity()
+        protected void EndTransportingEntity()
         {
             var entity = _entitiesOnTransporter.Dequeue().EndTransporting();
             _entitiesComplete.Enqueue(entity);

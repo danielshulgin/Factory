@@ -1,27 +1,27 @@
-﻿// // Copyright (c) Microsoft. All rights reserved.
-// // Licensed under the MIT license. See LICENSE file in the project root for full license information.
-
-using System;
+﻿using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
-using System.Windows;
+using System.Collections.Generic;
+
 
 namespace Factory.DAL
 {
-    public class DetailDataCollection : ObservableCollection<DetailData>
+    public class MachineDetailsViewModel : ObservableCollection<DetailInMachine>
     {
         public event EventHandler LineItemCostChanged;
 
-        public object Message { get; private set; }
-
-        public new void Add(DetailData item)
+        public DetailCollectionViewModel lineItems;
+        public new void Add(DetailInMachine item)
         {
             if (item != null)
             {
                 item.PropertyChanged += LineItemPropertyChanged;
             }
-            base.Add(item);
+            if (this.Where(d => d.Name == item.Name).Count() == 0)
+            {
+                base.Add(item);
+            }
         }
 
         private void LineItemPropertyChanged(object sender, PropertyChangedEventArgs e)
@@ -39,7 +39,7 @@ namespace Factory.DAL
 
         public void Remove(string Name)
         {
-            base.Remove((this as ObservableCollection<DetailData>).Where(i => i.Name == Name).First());
+            base.Remove((this as ObservableCollection<DetailInMachine>).Where(i => i.Name == Name).First());
         }
     }
 }

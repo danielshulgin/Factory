@@ -5,7 +5,7 @@ using System.ComponentModel;
 
 namespace Factory.DAL
 {
-    public class DetailData : INotifyPropertyChanged
+    public class DetailViewModel : INotifyPropertyChanged
     {
         private int _cost = 0;
         private string _description = "(empty description)";

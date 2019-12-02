@@ -20,8 +20,8 @@ namespace Factory
     /// </summary>
     public partial class Editor : Window
     {
-        private EditorData _editorData;
-        private EditorData EditorData{
+        private EditorDataViewModel _editorData;
+        private EditorDataViewModel EditorData{
             get
             {
                 if (_editorData == null)
@@ -38,7 +38,7 @@ namespace Factory
 
         private void AddDetailTypeButton_Click(object sender, RoutedEventArgs e)
         {
-            EditorData.DetailTypes.Add(new DetailData());
+            EditorData.DetailTypes.Add(new DetailViewModel());
         }
 
         private void Grid_MouseRightButtonDown(object sender, MouseButtonEventArgs e)
@@ -54,13 +54,13 @@ namespace Factory
 
         private void AddMachineDataButton_Click(object sender, RoutedEventArgs e)
         {
-            EditorData.Machines.Add(new MachineData());
+            EditorData.Machines.Add(new MachineViewModel());
         }
 
-        private EditorData GetEditorData()
+        private EditorDataViewModel GetEditorData()
         {
             var app = Application.Current;
-            var editorData = (EditorData)app.FindResource("EditorData");
+            var editorData = (EditorDataViewModel)app.FindResource("EditorData");
             return editorData;
         }
 
@@ -76,7 +76,7 @@ namespace Factory
         private void SelectMachineButton_Click(object sender, RoutedEventArgs e)
         {
             object Name = ((Button)sender).CommandParameter;
-            EditorData.SelectedMachine = (EditorData.Machines as ObservableCollection<MachineData>)
+            EditorData.SelectedMachine = (EditorData.Machines as ObservableCollection<MachineViewModel>)
                 .Where(i => i.Name == Name.ToString()).First();
             var dlg = new MachineDetailsEditor { Owner = this };
             dlg.Show();

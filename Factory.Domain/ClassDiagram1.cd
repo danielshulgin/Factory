@@ -8,14 +8,14 @@
     </TypeIdentifier>
   </Class>
   <Class Name="Factory.Domain.Machine">
-    <Position X="6" Y="3.25" Width="1.5" />
+    <Position X="5" Y="3.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AIQAAAgAAAAAAAAACAAAAAACEIAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Base\Machine.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Factory.Domain.Transporter">
-    <Position X="8.5" Y="3.25" Width="1.5" />
+    <Position X="9" Y="3.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AIQQAAAAAAAAAAAACAAAAAACGKIgEAAAAAAAAACAAAA=</HashCode>
       <FileName>Base\Transporter.cs</FileName>
@@ -29,21 +29,28 @@
     </TypeIdentifier>
   </Class>
   <Class Name="Factory.Domain.EntityOnTransposter">
-    <Position X="3" Y="4.5" Width="1.5" />
+    <Position X="1" Y="1.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>EARAAAAAAAAAAAAgAAEAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>EntityOnTransposter.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="Factory.Domain.MachineBase" Collapsed="true">
-    <Position X="7.25" Y="1.75" Width="1.5" />
+  <Class Name="Factory.Domain.MachineBase">
+    <Position X="7" Y="0.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AIQAAAAAEAAAQAIgCAAACACCEIAAAAAgAAAAAIAQCAA=</HashCode>
       <FileName>Base\MachineBase.cs</FileName>
     </TypeIdentifier>
   </Class>
+  <Class Name="Factory.Domain.MachineSource">
+    <Position X="2.75" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Base\MachineSource.cs</FileName>
+    </TypeIdentifier>
+  </Class>
   <Struct Name="Factory.Domain.Detail">
-    <Position X="3" Y="1.5" Width="1.5" />
+    <Position X="3" Y="1" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAgAAAABQAAAAABAAAAAAAAAAAAAA=</HashCode>
       <FileName>Base\Detail.cs</FileName>
