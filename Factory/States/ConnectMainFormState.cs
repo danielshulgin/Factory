@@ -47,28 +47,7 @@ namespace Factory
             else if (first != null && second == null)
             {
                 second = button;
-                //Console.Write("OK");
-                Transporter transporter = new Transporter(6f, 2f, true);
-                //TODO
-                Line line = new Line();
-
-                line.Stroke = Brushes.LightSteelBlue;
-
-                line.X1 = (int)first.Margin.Left;
-                line.Y1 = (int)first.Margin.Top;
-                line.X2 = (int)second.Margin.Left;
-                line.Y2 = (int)second.Margin.Top;
-                line.StrokeThickness = 2;
-
-                mainWindow.transporters.Add(line, transporter);
-                mainWindow.myCanvas.Children.Add(line);
-
-                //mainWindow.automaticMachines[first].TryConnectOutput(transporter);
-                //transporter.TryConnectInput(mainWindow.automaticMachines[first]);
-
-                //mainWindow.automaticMachines[second].TryConnectInput(transporter);
-                //transporter.TryConnectOutput(mainWindow.automaticMachines[second]);
-
+                mainWindow.CreateTransporter(first.Margin.Left, first.Margin.Top, second.Margin.Left, second.Margin.Top);
                 first = null;
                 second = null;
             }

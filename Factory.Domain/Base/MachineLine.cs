@@ -12,9 +12,43 @@ namespace Factory.Domain
         {
             if (machines == null)
             {
-                throw new NullReferenceException("machines = null");
+                throw new ArgumentNullException("machines");
+            }
+            if (machines.Count > 0)
+            {
+                CheckMachineOrder(machines);
             }
             this._machines = machines;
+        }
+
+        private void CheckMachineOrder(List<MachineBase> machines)
+        {
+            if (!(machines[0] is MachineSource))
+            {
+                throw new Exception("machine 0 must be of type MachineSource");
+            }
+            for (int i = 1; i < machines.Count; i++)
+            {
+                if (machines[i] is MachineSource)
+                {
+                    throw new Exception($"machine {i} of type MachineSource");
+                }
+            }
+            if (machines.Count % 2 == 0)
+            {
+                throw new Exception($"illegal number of machines({machines.Count})");
+            }
+            for (int i = 1; i < machines.Count; i += 2)
+            {
+                if (!(machines[i] is Transporter))
+                {
+                    throw new Exception($"machine {i} must be of type Transporter");
+                }
+                if ((machines[i + 1] is Transporter))
+                {
+                    throw new Exception($"machine {i + 1} of type Transporter");
+                }
+            }
         }
 
         public void Update(DateTime currentDateTime)

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -6,24 +7,24 @@ namespace Factory.Domain
 {
     public class Machine : MachineBase
     {
+        [JsonProperty]
         protected List<Detail> _detailsToAdd;
         
-        public Machine(float _entityHandleTime, bool active, List<Detail> detailsToAdd) : base(_entityHandleTime, active)
+        public Machine(double entityHandleTime = 0d, bool active = true, List<Detail> detailsToAdd = null, 
+            double x = 0d, double y = 0d) : base(entityHandleTime, active, x, y)
         {
             if (detailsToAdd == null)
             {
-                throw new NullReferenceException("details to add list = null");
+                //throw new ArgumentNullException("details to add");
             }
             _detailsToAdd = detailsToAdd;
         }
-
-        public Machine(float _entityHandleTime, bool active) : this(_entityHandleTime, active, new List<Detail>()) { }
 
         public override void Accept(Entity entity)
         {
             if (entity == null)
             {
-                throw new NullReferenceException("accepted entity = null");
+                throw new ArgumentNullException("accepted entity");
             }
             _entitiesQueue.Enqueue(entity);
         }

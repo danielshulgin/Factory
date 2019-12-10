@@ -2,13 +2,14 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Linq;
+using Newtonsoft.Json;
 
 namespace Factory.Domain
 {
     public class Entity
     {
         public List<string> DetailsNames => _details.Select(detail => detail.Name).ToList();
-
+        //[JsonProperty]
         private List<Detail> _details;
         public Entity()
         {

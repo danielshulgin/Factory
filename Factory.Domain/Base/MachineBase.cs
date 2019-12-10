@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 
 namespace Factory.Domain
@@ -7,7 +8,11 @@ namespace Factory.Domain
     {
         public bool Active { get; protected set; }
 
-        public float EntityHandleTime { get; protected set; }
+        public double EntityHandleTime { get; protected set; }
+
+        public double X { get; protected set; }
+
+        public double Y { get; protected set; }
 
         public virtual int InProcessEntityNumber => _entitiesInProcess.Count;
         
@@ -23,9 +28,9 @@ namespace Factory.Domain
 
         protected DateTime _timeOfStartHandling;
 
-        public MachineBase(float _entityHandleTime, bool active)
+        public MachineBase(double entityHandleTime = 0d, bool active = true, double x = 0d, double y = 0d)
         {
-            if (_entityHandleTime < 0 )
+            if (entityHandleTime < 0 )
             {
                 throw new Exception("Entity handle time must be greater than zero!");
             }
@@ -35,8 +40,10 @@ namespace Factory.Domain
             _entitiesQueue = new Queue<Entity>();
             _entitiesComplete = new Queue<Entity>();
 
-            this.EntityHandleTime = _entityHandleTime;
+            EntityHandleTime = entityHandleTime;
             Active = active;
+            X = x;
+            Y = y;
         }
 
         public abstract void Accept(Entity entity);
@@ -54,6 +61,12 @@ namespace Factory.Domain
         public virtual void SetActive(bool active)
         {
             Active = active;
+        }
+
+        public virtual void SetPosition(double x, double y)
+        {
+            X = x;
+            Y = y;
         }
     }
 }

@@ -19,6 +19,10 @@ namespace Factory
             this.mainWindow = mainWindow;
             List<MachineBase> automaticMachines = mainWindow.automaticMachines.Select(pair => pair.Value as MachineBase).ToList();
             List<MachineBase> transporters = mainWindow.transporters.Select(pair => pair.Value as MachineBase).ToList();
+            foreach (var t in transporters)
+            {
+                (t as Transporter).Reset();
+            }
             List<MachineBase> machines = new List<MachineBase>();
             machines.Add(mainWindow.automaticMachines.FirstOrDefault().Value);
             for (int i = 0; i < automaticMachines.Count - 1; i++)
@@ -43,20 +47,11 @@ namespace Factory
 
         public void Update()
         {
-            UpdateMachines();
+            //UpdateMachines();
             AddItemsOnTransporters();
             RemoveItemsFromTransporters();
-            //UpdateTransporters();
             _machineLine.Update(DateTime.Now);
             UpdateItemsPositions();
-        }
-        private void UpdateTransporters()
-        {
-            
-            //foreach (var connection in mainWindow.transporters.Values)
-            //{
-            //    connection.Update();
-            //}
         }
 
         private void RemoveItemsFromTransporters()
@@ -116,6 +111,10 @@ namespace Factory
                         button.Margin = new Thickness(x1 + (x2 - x1) * entityOnTransporter.Position,
                             y1 + (y2 - y1) * entityOnTransporter.Position, 0, 0);
                     }
+                    /*else
+                    {
+                        AddItemButton(entityOnTransporter);
+                    }*/
                 }
             }
         }

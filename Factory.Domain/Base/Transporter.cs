@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -6,20 +7,36 @@ namespace Factory.Domain
 {
     public class Transporter :  MachineBase
     {
+
+        public double X1 { get; protected set; }
+
+        public double Y1 { get; protected set; }
+
+        public double X2 { get; protected set; }
+
+        public double Y2 { get; protected set; }
+
         public double Progress { get; private set; }
-        public float PositionDelta { get; private set; }
-        public float EntityTransportingTime { get; private set; }
+
+        public double PositionDelta { get; private set; }
+
+        public double EntityTransportingTime { get; private set; }
 
         public IReadOnlyCollection<EntityOnTransposter> EntitiesOnTransporter => _entitiesOnTransporter;
-
+        [JsonProperty]
         private Queue<EntityOnTransposter> _entitiesOnTransporter;
-
+        [JsonProperty]
         private DateTime _lastUpdateTime;
 
-        public Transporter(float entityTransportingTime, float _entityHandleTime, bool active) : base(_entityHandleTime, active)
+        public Transporter(double entityTransportingTime = 0d, double entityHandleTime = 0d, bool active = true,
+            double x = 0d, double y = 0d, double x1 = 0d, double y1 = 0d, double x2 = 0d, double y2 = 0d) : base(entityHandleTime, active, x, y)
         {
             EntityTransportingTime = entityTransportingTime;
             _entitiesOnTransporter = new Queue<EntityOnTransposter>();
+            X1 = x1;
+            Y1 = y1;
+            X2 = x2;
+            Y2 = y2;
         }
 
         public override void HandleEntity()
@@ -30,7 +47,7 @@ namespace Factory.Domain
 
         public override void Update(DateTime currentDateTime)
         {
-            float timeElapsed = (float)(DateTime.Now - _lastUpdateTime).TotalSeconds / EntityHandleTime;
+            double timeElapsed = (DateTime.Now - _lastUpdateTime).TotalSeconds / EntityHandleTime;
             _lastUpdateTime = DateTime.Now;
             PositionDelta = timeElapsed / EntityTransportingTime;
             int readyEntities = 0;
@@ -87,6 +104,11 @@ namespace Factory.Domain
                 return _entitiesComplete.Dequeue();
             }
             return null;
+        }
+
+        public void Reset()
+        {
+            _entitiesOnTransporter = new Queue<EntityOnTransposter>();
         }
     }
 }

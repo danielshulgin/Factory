@@ -16,6 +16,7 @@ namespace Factory
     {
         MainWindow mainWindow;
         Button currentButton;
+        System.Windows.Point lastPosition;
         Dictionary<Button, Machine> applied;
 
         public void Activate(MainWindow mainWindow)
@@ -42,6 +43,7 @@ namespace Factory
             if (currentButton != null)
             {
                 System.Windows.Point position = Mouse.GetPosition(mainWindow.myCanvas);
+                //lastPosition = Mouse.GetPosition(mainWindow.myCanvas);
                 currentButton.Margin = new Thickness(position.X, position.Y, 0, 0);
             }
         }
@@ -52,23 +54,22 @@ namespace Factory
             {
                 if (currentButton == null)
                 {
-                    currentButton = new Button();
-                    currentButton.Margin = new Thickness(0, 0, 0, 0);
-                    currentButton.Height = 40;
-                    currentButton.Width = 40;
-
+                    currentButton = mainWindow.CreateButtonForMachine();
                     currentButton.Click += Form1_MouseClick;
-                    mainWindow.myCanvas.Children.Add(currentButton);
-                    var machineData = (mainWindow.EditorData.Machines.Where(machine => 
+                    
+                    var machineData = (mainWindow.EditorData.Machines.Where(machine =>
                     machine.Name == mainWindow.machineTypeComboBox.SelectedItem.ToString()).First() as MachineViewModel);
                     var addDetails = machineData.details.Select(detail => new Detail(detail.Name, Guid.NewGuid())).ToList();
+                    lastPosition = currentButton.TransformToAncestor(mainWindow)
+                          .Transform(new System.Windows.Point(0, 0));
                     if (mainWindow.machineGeneralComboBox.SelectedIndex == 0)
                     {
-                        applied[currentButton] = new MachineSource(machineData.TimeToCreateDetail, true, new List<Detail>());
+                        applied[currentButton] = new MachineSource(machineData.TimeToCreateDetail, true, new List<Detail>(),
+                            lastPosition.X, lastPosition.Y);
                     }
                     else
                     {
-                        applied[currentButton] = new Machine(machineData.TimeToCreateDetail, true, addDetails);
+                        applied[currentButton] = new Machine(machineData.TimeToCreateDetail, true, addDetails, lastPosition.X, lastPosition.Y);
                     }
                 }
                 else
@@ -88,6 +89,12 @@ namespace Factory
 
         private void Form1_MouseClick(object sender, EventArgs e)
         {
+            if (currentButton != null)
+            {
+                lastPosition = currentButton.TransformToAncestor(mainWindow.myCanvas)
+                          .Transform(new System.Windows.Point(0, 0));
+                applied[(Button)sender].SetPosition(lastPosition.X, lastPosition.Y);
+            }
             currentButton = null;
         }
 

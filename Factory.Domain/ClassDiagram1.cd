@@ -1,61 +1,61 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1">
   <Class Name="Factory.Domain.MachineLine">
-    <Position X="10.75" Y="1" Width="1.5" />
+    <Position X="8.5" Y="1.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAQAQAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Base\MachineLine.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Factory.Domain.Machine">
-    <Position X="5" Y="3.25" Width="1.5" />
+    <Position X="1" Y="6" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AIQAAAgAAAAAAAAACAAAAAACEIAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Base\Machine.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Factory.Domain.Transporter">
-    <Position X="9" Y="3.25" Width="1.5" />
+    <Position X="3.25" Y="6" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AIQQAAAAAAAAAAAACAAAAAACGKIgEAAAAAAAAACAAAA=</HashCode>
       <FileName>Base\Transporter.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="Factory.Domain.Entity">
-    <Position X="10.75" Y="3.5" Width="1.5" />
+  <Class Name="Factory.Domain.Entity" Collapsed="true">
+    <Position X="5.75" Y="0.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAABAAAAAAAAAAAAAAAAAAAAAAAAAACAAAAAAAABAAA=</HashCode>
       <FileName>Base\Entity.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="Factory.Domain.EntityOnTransposter">
-    <Position X="1" Y="1.25" Width="1.5" />
+  <Class Name="Factory.Domain.EntityOnTransposter" Collapsed="true">
+    <Position X="7.5" Y="0.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>EARAAAAAAAAAAAAgAAEAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>EntityOnTransposter.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Factory.Domain.MachineBase">
-    <Position X="7" Y="0.5" Width="1.5" />
+    <Position X="2.25" Y="0.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AIQAAAAAEAAAQAIgCAAACACCEIAAAAAgAAAAAIAQCAA=</HashCode>
       <FileName>Base\MachineBase.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Factory.Domain.MachineSource">
-    <Position X="2.75" Y="4.5" Width="1.5" />
+    <Position X="1" Y="9.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Base\MachineSource.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Struct Name="Factory.Domain.Detail">
-    <Position X="3" Y="1" Width="1.5" />
+  <Struct Name="Factory.Domain.Detail" BaseTypeListCollapsed="true">
+    <Position X="5.75" Y="2.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAgAAAABQAAAAABAAAAAAAAAAAAAA=</HashCode>
       <FileName>Base\Detail.cs</FileName>
     </TypeIdentifier>
-    <Lollipop Position="0.2" />
+    <Lollipop Position="0.2" Collapsed="true" />
   </Struct>
   <Font Name="Segoe UI" Size="9" />
 </ClassDiagram>

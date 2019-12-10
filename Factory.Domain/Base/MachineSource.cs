@@ -6,14 +6,19 @@ namespace Factory.Domain
 {
     public class MachineSource : Machine
     {
-        public MachineSource(float _entityHandleTime, bool active, List<Detail> detailsToAdd) : base(_entityHandleTime, active, detailsToAdd)
+        public MachineSource(double entityHandleTime = 0d, bool active = true, List<Detail> detailsToAdd = null,
+            double x = 0d, double y = 0d) : base(entityHandleTime, active, detailsToAdd, x, y)
         {
         }
 
-        public override void Update(DateTime currentDateTime)
+        public override void EndHandleEntity()
         {
-            base.Update(currentDateTime);
-            _entitiesComplete.Enqueue(new Entity());
+            Entity entity = new Entity();
+            foreach (var detail in _detailsToAdd)
+            {
+                entity.TryAddDetail(detail);
+            }
+            _entitiesComplete.Enqueue(entity);
         }
     }
 }

@@ -8,6 +8,9 @@ using System.Windows.Shapes;
 using System.Windows.Threading;
 using Factory.Domain;
 using Factory.DAL;
+using System.Windows.Media;
+using Newtonsoft.Json;
+using System.IO;
 
 namespace Factory
 {
@@ -106,6 +109,103 @@ namespace Factory
                     ChangeMode(new ActiveMainFormState());
                     break;
 
+            }
+        }
+
+        public Button CreateButtonForMachine(double x = 0d, double y = 0d)
+        {
+            var button = new Button();
+            button.Margin = new Thickness(x, y, 0, 0);
+            button.Height = 40;
+            button.Width = 40;
+            myCanvas.Children.Add(button);
+            return button;
+        }
+
+        public Transporter CreateTransporter(double x1, double y1, double x2, double y2)
+        {
+            Transporter transporter = new Transporter(6f, 2f, true, (x1 + x2) / 2, (x1 + x2) / 2, x1, y1, x2, y2);
+            CreateTransporterRenderer(x1, y1, x2, y2, transporter);
+            return transporter;
+        }
+
+        public void CreateTransporterRenderer(double x1, double y1, double x2, double y2, Transporter transporter)
+        {
+            Line line = new Line();
+            line.Stroke = Brushes.LightSteelBlue;
+            line.X1 = (int)x1;
+            line.Y1 = (int)y1;
+            line.X2 = (int)x2;
+            line.Y2 = (int)y2;
+            line.StrokeThickness = 2;
+            transporters.Add(line, transporter);
+            myCanvas.Children.Add(line);
+        }
+        public void Save(object sender, RoutedEventArgs e)
+        {
+            var machines = automaticMachines.Values.ToList();
+            var transportersdata = transporters.Values.ToList();
+            var db = new Database();
+            db.transporters = transportersdata;
+            db.machines = machines;
+            JsonSerializerSettings settings = new JsonSerializerSettings
+            {
+                TypeNameHandling = TypeNameHandling.All
+            };
+            string machinesJson = JsonConvert.SerializeObject(db, settings);
+            string File_name = "E:\\Labas\\db.json";
+            if (System.IO.File.Exists(File_name) == true)
+            {
+                FileStream fs = new FileStream(File_name, FileMode.Create, FileAccess.Write);
+                StreamWriter objWrite = new StreamWriter(fs);
+                objWrite.Write(machinesJson);
+                objWrite.Close();
+            }
+            else
+            {
+                FileStream fs = new FileStream(File_name, FileMode.Create, FileAccess.Write);
+                StreamWriter objWrite = new StreamWriter(fs);
+                objWrite.Write(machinesJson);
+                objWrite.Close();
+            }
+            //Load(null, null);
+        }
+        public void Load(object sender, RoutedEventArgs e)
+        {
+            automaticMachines = new Dictionary<Button, Machine>();
+            transporters = new Dictionary<Line, Transporter>();
+            string File_name = "E:\\Labas\\db.json";
+            string transportersJson = "";
+            if (System.IO.File.Exists(File_name) == true)
+            {
+                System.IO.StreamReader objReader;
+                objReader = new StreamReader(File_name);
+                transportersJson = objReader.ReadToEnd();
+                objReader.Close();
+            }
+            else
+            {
+                MessageBox.Show("File Not Exist");
+            }
+            JsonSerializerSettings settings = new JsonSerializerSettings
+            {
+                TypeNameHandling = TypeNameHandling.All
+            };
+            var transportersLoaded = JsonConvert.DeserializeObject<Database>(transportersJson, settings);
+            Load(transportersLoaded.machines, transportersLoaded.transporters);
+        }
+        public void Load(List<Machine> machines, List<Transporter> transporters)
+        {
+            foreach (var machine in machines)
+            {
+                var button = CreateButtonForMachine(machine.X, machine.Y);
+                //automaticMachines[button] = machine;
+                automaticMachines.Add(button, machine);
+            }
+
+            foreach (var transporter in transporters)
+            {
+                CreateTransporterRenderer(transporter.X1, transporter.Y1, transporter.X2, transporter.Y2, transporter);
             }
         }
 

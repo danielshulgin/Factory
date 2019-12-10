@@ -17,7 +17,7 @@
         <ComboBox x:Name="machineTypeComboBox" HorizontalAlignment="Left" SelectionChanged ="ComboBox_SelectionChanged"  
                   Margin="36,160,0,0" VerticalAlignment="Top" Width="120" >
         </ComboBox>
-        
+
         <ComboBox x:Name="machineGeneralComboBox" HorizontalAlignment="Left" SelectionChanged ="ComboBox_SelectionChanged"  
                   Margin="36,201,0,0" VerticalAlignment="Top" Width="120" SelectedIndex="0" >
         </ComboBox>
@@ -51,6 +51,8 @@
 
         </Canvas>
         <Button x:Name="ItemManagementBtn" Click="ItemManagementButton_Click" Content="Item Management" HorizontalAlignment="Left" Margin="36,123,0,0" VerticalAlignment="Top"/>
+        <Button x:Name="LoadButton" Click="Load" Content="Load" HorizontalAlignment="Left" Margin="36,237,0,0" VerticalAlignment="Top"/>
+        <Button x:Name="SaveButton" Click="Save" Content="Save" HorizontalAlignment="Left" Margin="81,237,0,0" VerticalAlignment="Top"/>
 
     </Grid>
 </Window>

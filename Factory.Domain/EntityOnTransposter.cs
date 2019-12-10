@@ -6,7 +6,7 @@ namespace Factory.Domain
 {
     public class EntityOnTransposter
     {
-        public float Position { get; private set; }
+        public double Position { get; private set; }
         public Entity Entity { get; private set; }
 
         private bool _done;
