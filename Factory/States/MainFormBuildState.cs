@@ -64,7 +64,7 @@ namespace Factory
                           .Transform(new System.Windows.Point(0, 0));
                     if (mainWindow.machineGeneralComboBox.SelectedIndex == 0)
                     {
-                        applied[currentButton] = new MachineSource(machineData.TimeToCreateDetail, true, new List<Detail>(),
+                        applied[currentButton] = new MachineSource(machineData.TimeToCreateDetail, true, addDetails,
                             lastPosition.X, lastPosition.Y);
                     }
                     else

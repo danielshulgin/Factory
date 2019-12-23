@@ -5,6 +5,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.2" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Reference Include="Factory.Domain">
       <HintPath>..\Factory.Domain\obj\Debug\netstandard2.0\Factory.Domain.dll</HintPath>
     </Reference>

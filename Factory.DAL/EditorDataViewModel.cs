@@ -7,7 +7,6 @@ namespace Factory.DAL
 {
     public class EditorDataViewModel : INotifyPropertyChanged
     {
-        
         public DetailCollectionViewModel DetailTypes { get; set; }
         public MachineCollectionViewModel Machines { get; set; }
 

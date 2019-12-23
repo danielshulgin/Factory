@@ -9,7 +9,7 @@ namespace Factory.Domain
     {
         [JsonProperty]
         protected List<Detail> _detailsToAdd;
-        
+
         public Machine(double entityHandleTime = 0d, bool active = true, List<Detail> detailsToAdd = null, 
             double x = 0d, double y = 0d) : base(entityHandleTime, active, x, y)
         {
@@ -17,7 +17,7 @@ namespace Factory.Domain
             {
                 //throw new ArgumentNullException("details to add");
             }
-            _detailsToAdd = detailsToAdd;
+            this._detailsToAdd = detailsToAdd;
         }
 
         public override void Accept(Entity entity)

@@ -23,7 +23,7 @@ namespace Factory
         private Dictionary<Button, EntityOnTransposter> _entitiesButtons;
         public Database database;
 
-        private EditorDataViewModel _editorData;
+        public EditorDataViewModel _editorData;
 
         public EditorDataViewModel EditorData
         {
@@ -68,20 +68,18 @@ namespace Factory
         private void ItemManagementButton_Click(object sender, RoutedEventArgs e)
         {
             var dlg = new Editor { Owner = this };
+            //dlg.expensesItemsControl.ItemsSource = EditorData.DetailTypes;
             dlg.Show();
             dlg.Closed += (d, b) => ApplyEditorData();
         }
 
         private void ApplyEditorData()
         {
-            var app = Application.Current;
-            var expenseReport = (EditorDataViewModel)app.FindResource("EditorData");
-            List<DetailType> detailTypes= new List<DetailType>();
-            foreach (var item in expenseReport.Machines)
+            machineTypeComboBox.ItemsSource = EditorData.Machines.Select(machine => machine.Name).ToList();
+            if (EditorData.Machines.Count > 0)
             {
-                detailTypes.Add(new DetailType(item.Name));
+                machineTypeComboBox.SelectedIndex = 0;
             }
-            machineTypeComboBox.ItemsSource = expenseReport.Machines.Select(machine => machine.Name).ToList();
         }
 
 
@@ -110,6 +108,23 @@ namespace Factory
                     break;
 
             }
+        }
+
+        public void Clear(object sender, RoutedEventArgs e)
+        {
+            foreach (var machine in automaticMachines)
+            {
+                myCanvas.Children.Remove(machine.Key);
+            }
+
+            foreach (var transporter in transporters)
+            {
+                myCanvas.Children.Remove(transporter.Key);
+            }
+
+            automaticMachines = new Dictionary<Button, Machine>();
+            transporters = new Dictionary<Line, Transporter>();
+            _entitiesButtons = new Dictionary<Button, EntityOnTransposter>();
         }
 
         public Button CreateButtonForMachine(double x = 0d, double y = 0d)
@@ -145,55 +160,21 @@ namespace Factory
         {
             var machines = automaticMachines.Values.ToList();
             var transportersdata = transporters.Values.ToList();
-            var db = new Database();
-            db.transporters = transportersdata;
-            db.machines = machines;
-            JsonSerializerSettings settings = new JsonSerializerSettings
-            {
-                TypeNameHandling = TypeNameHandling.All
-            };
-            string machinesJson = JsonConvert.SerializeObject(db, settings);
-            string File_name = "E:\\Labas\\db.json";
-            if (System.IO.File.Exists(File_name) == true)
-            {
-                FileStream fs = new FileStream(File_name, FileMode.Create, FileAccess.Write);
-                StreamWriter objWrite = new StreamWriter(fs);
-                objWrite.Write(machinesJson);
-                objWrite.Close();
-            }
-            else
-            {
-                FileStream fs = new FileStream(File_name, FileMode.Create, FileAccess.Write);
-                StreamWriter objWrite = new StreamWriter(fs);
-                objWrite.Write(machinesJson);
-                objWrite.Close();
-            }
-            //Load(null, null);
+            var sessionData = new SessionDataViewModel(machines, transportersdata, _editorData);
+            database.Save(sessionData);
         }
         public void Load(object sender, RoutedEventArgs e)
         {
             automaticMachines = new Dictionary<Button, Machine>();
             transporters = new Dictionary<Line, Transporter>();
-            string File_name = "E:\\Labas\\db.json";
-            string transportersJson = "";
-            if (System.IO.File.Exists(File_name) == true)
-            {
-                System.IO.StreamReader objReader;
-                objReader = new StreamReader(File_name);
-                transportersJson = objReader.ReadToEnd();
-                objReader.Close();
-            }
-            else
-            {
-                MessageBox.Show("File Not Exist");
-            }
-            JsonSerializerSettings settings = new JsonSerializerSettings
-            {
-                TypeNameHandling = TypeNameHandling.All
-            };
-            var transportersLoaded = JsonConvert.DeserializeObject<Database>(transportersJson, settings);
-            Load(transportersLoaded.machines, transportersLoaded.transporters);
+            var sessionData = database.Load();
+            _editorData = sessionData.editorDataViewModel;
+            var app = Application.Current;
+            ApplyEditorData();
+            Application.Current.Resources["EditorData"] = sessionData.editorDataViewModel;
+            Load(sessionData.machines, sessionData.transporters);
         }
+
         public void Load(List<Machine> machines, List<Transporter> transporters)
         {
             foreach (var machine in machines)

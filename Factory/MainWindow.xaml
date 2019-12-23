@@ -53,6 +53,7 @@
         <Button x:Name="ItemManagementBtn" Click="ItemManagementButton_Click" Content="Item Management" HorizontalAlignment="Left" Margin="36,123,0,0" VerticalAlignment="Top"/>
         <Button x:Name="LoadButton" Click="Load" Content="Load" HorizontalAlignment="Left" Margin="36,237,0,0" VerticalAlignment="Top"/>
         <Button x:Name="SaveButton" Click="Save" Content="Save" HorizontalAlignment="Left" Margin="81,237,0,0" VerticalAlignment="Top"/>
+        <Button x:Name="ClearButton" Click="Clear" Content="Clear" HorizontalAlignment="Left" Margin="35,273,0,0" VerticalAlignment="Top"/>
 
     </Grid>
 </Window>

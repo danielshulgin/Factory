@@ -6,7 +6,7 @@
         xmlns:localValidation="Factory.Validation"
         xmlns:local="clr-namespace:Factory"
         mc:Ignorable="d"
-        DataContext="{StaticResource EditorData}"
+        DataContext="{DynamicResource EditorData}"
         Title="Editor" Height="598" Width="282">
     <Window.Resources>
         <Style x:Key="ExpenseScroller" TargetType="{x:Type ItemsControl}">
@@ -48,9 +48,9 @@
                     <TextBlock Grid.Row="0" Grid.Column="1" FontWeight="Bold">Detail</TextBlock>
 
                     <ItemsControl Grid.Column="1" Grid.Row="1" Name="expensesItemsControl2"
-                          Style="{StaticResource ExpenseScroller}"
+                          Style="{DynamicResource ExpenseScroller}"
                           Grid.ColumnSpan="1"
-                          ItemTemplate="{StaticResource DetailThatTheMachineAdd}"
+                          ItemTemplate="{DynamicResource DetailThatTheMachineAdd}"
                           ItemsSource="{Binding Path = SelectedMachine.details, UpdateSourceTrigger=PropertyChanged}" />
                     <Button Click="AddDetailToMachineButton_Click" Grid.Row="2" Grid.Column="1">
                         <StackPanel Orientation="Horizontal">
